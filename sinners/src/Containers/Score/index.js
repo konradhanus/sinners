@@ -1,8 +1,10 @@
 import { connect } from "react-redux";
 import actionCreators from "./action";
-import { Grid, Row, Col } from "../../Components/Grid";
+import Grid from "../../Components/Grid";
+import Col from "../../Components/Col";
+import Row from "../../Components/Row";
 
-const Score = ({ score, increaseScore, decreaseScore }) =>
+const Score = ({ score, increaseScore, decreaseScore }) => (
   <Grid>
     <Row>
       <Col size={1}>
@@ -14,6 +16,7 @@ const Score = ({ score, increaseScore, decreaseScore }) =>
       </Col>
     </Row>
   </Grid>
+);
 
 const mapStateToProps = (state) => {
   return { score: state.score };
