@@ -3,7 +3,7 @@ export const GO_RIGHT = "@PLAYER/GO_RIGHT";
 export const JUMP = "@PLAYER/JUMP";
 export const FALL = "@PLAYER/FALL";
 
-export const actionCreators = {
+const actionCreators = {
   goLeft: () => ({ type: GO_LEFT }),
   goRight: () => ({ type: GO_RIGHT }),
   jump: () => ({ type: JUMP }),

@@ -1,8 +1,10 @@
 import styled from "styled-components";
-import Box from "../../Components/Box";
+import Player from "./Player";
+import actionCreators from "./action";
+import { connect } from "react-redux";
 
-const Player = styled(Box)`
+const PlayerStyled = styled(Player)`
   transition: left 1s;
 `;
 
-export default Player;
+export default connect(null, actionCreators)(PlayerStyled);
