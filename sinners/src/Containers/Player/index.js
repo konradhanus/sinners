@@ -4,7 +4,7 @@ import actionCreators from "./action";
 import { connect } from "react-redux";
 
 const PlayerStyled = styled(Player)`
-  transition: left 1s;
+  transition: left 0.5s;
 `;
 
 export default connect(null, actionCreators)(PlayerStyled);

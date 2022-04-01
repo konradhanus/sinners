@@ -4,10 +4,22 @@ export const JUMP = "@PLAYER/JUMP";
 export const FALL = "@PLAYER/FALL";
 
 const actionCreators = {
-  goLeft: () => ({ type: GO_LEFT }),
-  goRight: () => ({ type: GO_RIGHT }),
-  jump: () => ({ type: JUMP }),
-  fall: () => ({ type: FALL }),
+  goLeft: () => {
+    console.log(GO_LEFT);
+    return { type: GO_LEFT };
+  },
+  goRight: () => {
+    console.log(GO_RIGHT);
+    return { type: GO_RIGHT };
+  },
+  jump: () => {
+    console.log(JUMP);
+    return { type: JUMP };
+  },
+  fall: () => {
+    console.log(FALL);
+    return { type: FALL };
+  },
 };
 
 export default actionCreators;

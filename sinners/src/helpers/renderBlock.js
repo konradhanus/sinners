@@ -21,7 +21,7 @@ const renderBlock = (tile, x, y) => {
     case 3:
       return <Box x={x} y={y} background={dirtRight} />;
     case 4:
-      return <Player x={x} y={y} background={player} />;
+      return <Player x={x} y={y} background={player} key={"player"} />;
     case 5:
       return <Box x={x} y={y} background={box} />;
     case 6:
