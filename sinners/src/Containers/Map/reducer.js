@@ -18,19 +18,19 @@ const movement = (state, move, initLevel) => {
   const newState = state;
 
   if (move === "left") {
-    newState[cooX][cooY] = 1;
+    newState[cooX][cooY] = 0;
     newState[cooX][cooY - 1] = 4;
   }
   if (move === "right") {
-    newState[cooX][cooY] = 1;
+    newState[cooX][cooY] = 0;
     newState[cooX][cooY + 1] = 4;
   }
   if (move === "jump") {
-    newState[cooX][cooY] = 1;
+    newState[cooX][cooY] = 0;
     newState[cooX - 1][cooY] = 4;
   }
   if (move === "fall") {
-    newState[cooX][cooY] = 1;
+    newState[cooX][cooY] = 0;
     newState[cooX + 1][cooY] = 4;
   }
 

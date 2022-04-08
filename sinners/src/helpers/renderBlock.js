@@ -9,24 +9,25 @@ import Box from "../Components/Box";
 import EmptyBlock from "../Components/EmptyBlock";
 import Player from "../Containers/Player";
 import Tom from "../Components/Tom";
+import { BLOCKS } from "./type";
 
 const renderBlock = (tile, x, y) => {
   switch (tile) {
-    case 0:
+    case BLOCKS.EMPTY:
       return <EmptyBlock x={x} y={y} />;
-    case 1:
+    case BLOCKS.DIRT_LEFT:
       return <Box x={x} y={y} background={dirtLeft} />;
-    case 2:
+    case BLOCKS.DIRT_MIDDLE:
       return <Box x={x} y={y} background={dirtMiddle} />;
-    case 3:
+    case BLOCKS.DIRT_RIGHT:
       return <Box x={x} y={y} background={dirtRight} />;
-    case 4:
+    case BLOCKS.PLAYER:
       return <Player x={x} y={y} background={player} key={"player"} />;
-    case 5:
+    case BLOCKS.BOX:
       return <Box x={x} y={y} background={box} />;
-    case 6:
+    case BLOCKS.WATER:
       return <Box x={x} y={y} background={water} />;
-    case 7:
+    case BLOCKS.TOM:
       return <Tom x={x} y={y} background={tom} />;
     default:
       return <EmptyBlock x={x} y={y} />;

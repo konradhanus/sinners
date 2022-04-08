@@ -7,4 +7,10 @@ const PlayerStyled = styled(Player)`
   transition: left 0.5s;
 `;
 
-export default connect(null, actionCreators)(PlayerStyled);
+const mapStateToProps = (state) => {
+  return {
+    level: state.map,
+  };
+};
+
+export default connect(mapStateToProps, actionCreators)(PlayerStyled);
