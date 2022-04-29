@@ -43,8 +43,7 @@ const Player = (props) => {
 
   // component did update
   useEffect(() => {
-    // PROMISE
-
+    // PROMISES
     const getPokemon = (name, success, error) => {
       return new Promise((resolve, reject) => {
         fetch(`https//pokeapi.co/api/v2/pokemon/${name}`)
@@ -76,7 +75,7 @@ const Player = (props) => {
         console.log("allways will be display");
       });
 
-    // PROMISES
+    // PROMISES sytax sugar (async await)
     const getPokemonAsync = async () => {
       const name = "ditto";
       const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
@@ -91,54 +90,28 @@ const Player = (props) => {
     getPokemonAsync();
 
     // GENERATOR
+    function* it() {
+      while (true) {
+        yield "check if this item is on the store";
+        yield "check if the use have a money on you bank account";
+        yield "dispaly information that everythink is all right";
+        yield "go to the stire";
+        return "done";
+      }
+    }
 
-    // function* it() {
-    //   while (true) {
-    //     const name = "ditto";
-    //     // const getData = fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-    //     //   .then(function (response) {
-    //     //     return response.json();
-    //     //   })
-    //     //   .then((v) => v);
+    const iterator = it();
 
-    //     // console.log(getData());
-
-    //     const getData = fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-
-    //     console.log();
-
-    //     // console.log(myPokemon.json());
-
-    //     const serverPromise = yield getData;
-
-    //     serverPromise
-    //       .json()
-    //       .then(function (j) {
-    //         console.log(j);
-    //       })
-    //       .catch(function (e) {
-    //         console.log(e);
-    //       });
-
-    //     yield "check if the use have a money on you bank account";
-    //     yield "dispaly information that everythink is all right";
-    //     yield "go to the stire";
-    //     return "done";
-    //   }
-    // }
-
-    // const iterator = it();
-
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
-    // console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
+    console.log(iterator.next());
 
     if (checkWhatIsBellowMe(props.level) === BLOCKS.WATER) {
       const promise1 = new Promise((resolve, reject) => {
