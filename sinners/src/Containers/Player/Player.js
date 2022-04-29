@@ -8,9 +8,11 @@ import {
   checkWhatIsBellowMe,
 } from "./helper";
 import { BLOCKS } from "./../../helpers/type";
+import * as fetch from "isomorphic-fetch";
+import { CompressedPixelFormat } from "three";
 
 const Player = (props) => {
-  console.log(props);
+  // console.log(props);
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
@@ -41,9 +43,102 @@ const Player = (props) => {
 
   // component did update
   useEffect(() => {
-    // setTimeout(()=>console.log(1), 0)
-    //
-    //
+    // PROMISE
+
+    const getPokemon = (name, success, error) => {
+      return new Promise((resolve, reject) => {
+        fetch(`https//pokeapi.co/api/v2/pokemon/${name}`)
+          .then(function (serverPromise) {
+            serverPromise
+              .json()
+              .then(function (j) {
+                // console.log(j);
+                resolve(j);
+              })
+              .catch(function (e) {
+                reject(e);
+              });
+          })
+          .catch(function (e) {
+            console.log(e);
+          });
+      });
+    };
+
+    getPokemon("ditto")
+      .then((value) => {
+        console.log("aaa", value);
+      })
+      .catch((e) => {
+        console.error("MY ERROR MESSAGES", e);
+      })
+      .finally(() => {
+        console.log("allways will be display");
+      });
+
+    // PROMISES
+    const getPokemonAsync = async () => {
+      const name = "ditto";
+      const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      const pokemon = await data.json();
+
+      //or
+      //   const pokemon = await getPokemon("ditto");
+
+      console.log(pokemon);
+    };
+
+    getPokemonAsync();
+
+    // GENERATOR
+
+    // function* it() {
+    //   while (true) {
+    //     const name = "ditto";
+    //     // const getData = fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+    //     //   .then(function (response) {
+    //     //     return response.json();
+    //     //   })
+    //     //   .then((v) => v);
+
+    //     // console.log(getData());
+
+    //     const getData = fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+
+    //     console.log();
+
+    //     // console.log(myPokemon.json());
+
+    //     const serverPromise = yield getData;
+
+    //     serverPromise
+    //       .json()
+    //       .then(function (j) {
+    //         console.log(j);
+    //       })
+    //       .catch(function (e) {
+    //         console.log(e);
+    //       });
+
+    //     yield "check if the use have a money on you bank account";
+    //     yield "dispaly information that everythink is all right";
+    //     yield "go to the stire";
+    //     return "done";
+    //   }
+    // }
+
+    // const iterator = it();
+
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
+    // console.log(iterator.next());
 
     if (checkWhatIsBellowMe(props.level) === BLOCKS.WATER) {
       const promise1 = new Promise((resolve, reject) => {
@@ -53,8 +148,8 @@ const Player = (props) => {
       });
 
       promise1.then((e) => {
-        console.log("i was there", e);
-        console.log("now!", playerCoordinatesFinder(props.level));
+        // console.log("i was there", e);
+        //  console.log("now!", playerCoordinatesFinder(props.level));
         props.fall();
       });
     }
