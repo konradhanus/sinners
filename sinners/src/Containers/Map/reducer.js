@@ -40,6 +40,7 @@ const movement = (state, move, initLevel) => {
 const reducer = (state = level1, action) => {
   switch (action.type) {
     case GO_LEFT: {
+      fetch("/api");
       return movement(state, "left", initialLevel);
     }
     case GO_RIGHT:

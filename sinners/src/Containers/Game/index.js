@@ -5,7 +5,6 @@ import renderBlock from "../../helpers/renderBlock";
 import Header from "../Header";
 import ExtremeButton from "../Buttons/ExtremeButton";
 import { connect } from "react-redux";
-
 function Game({ level, counter }) {
   const [likes, setLike] = useState(0);
   const [dislikes, setDislikes] = useState(0);
@@ -20,7 +19,6 @@ function Game({ level, counter }) {
 
   const doNothing = useCallback(() => {}, []);
 
-  console.log("my State", level);
   return (
     <>
       <Header />

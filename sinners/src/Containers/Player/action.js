@@ -3,6 +3,9 @@ export const GO_RIGHT = "@PLAYER/GO_RIGHT";
 export const JUMP = "@PLAYER/JUMP";
 export const FALL = "@PLAYER/FALL";
 
+export const FETCH_POKEMON_DATA = "@PLAYER/FETCH";
+export const PUT_POKEMON = "@PLAYER/PUT";
+
 const actionCreators = {
   goLeft: () => {
     console.log(GO_LEFT);
@@ -19,6 +22,20 @@ const actionCreators = {
   fall: () => {
     console.log(FALL);
     return { type: FALL };
+  },
+  fetch: (pokemonName) => {
+    console.log(FETCH_POKEMON_DATA);
+    return {
+      type: FETCH_POKEMON_DATA,
+      payload: pokemonName,
+    };
+  },
+  put: (data) => {
+    console.log(PUT_POKEMON);
+    return {
+      type: PUT_POKEMON,
+      payload: data,
+    };
   },
 };
 
