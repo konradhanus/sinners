@@ -133,7 +133,7 @@ const Player = (props) => {
     // .console.log("player x,y:", playerCoordinatesFinder(props.level));
   });
 
-  return <Box onClick={() => props.fetch("ditto")} {...props} />;
+  return <Box onClick={() => props.fetch("pikachu")} {...props} />;
 };
 
 export default Player;
