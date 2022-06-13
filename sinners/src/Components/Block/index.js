@@ -10,8 +10,10 @@ import EmptyBlock from "../EmptyBlock";
 import Player from "../../Containers/Player";
 import Tom from "../Tom";
 import { BLOCK } from "./type";
+import Pokemon from "../../Containers/Pokemon";
+import { connect } from "react-redux";
 
-const Block = ({ tile, x, y }) => {
+const Block = ({ tile, x, y, pokemonSprite }) => {
   switch (tile) {
     case BLOCK.EMPTY:
       return <EmptyBlock x={x} y={y} />;
@@ -29,9 +31,26 @@ const Block = ({ tile, x, y }) => {
       return <Box x={x} y={y} background={water} />;
     case BLOCK.TOM:
       return <Tom x={x} y={y} background={tom} />;
+    case BLOCK.POKEMON:
+      return (
+        <Pokemon
+          x={x}
+          y={y}
+          background={
+            pokemonSprite.sprites ? pokemonSprite.sprites.front_default : null
+          }
+          scale={2}
+        />
+      );
     default:
       return <EmptyBlock x={x} y={y} />;
   }
 };
 
-export default Block;
+const mapStateToProps = (state) => {
+  return {
+    pokemonSprite: state.pokemon,
+  };
+};
+
+export default connect(mapStateToProps)(Block);

@@ -10,6 +10,8 @@ function* onFetchDataFromApiSaga({ payload }) {
   const data = yield dataPromise.json();
 
   yield put(actionCreators.put(data));
+
+  console.log("aaaaaaaaa");
 }
 
 function* fetchDataFromApiSaga() {

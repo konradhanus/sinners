@@ -7,4 +7,5 @@ export const BLOCK = {
   BOX: 5,
   WATER: 6,
   TOM: 7,
+  POKEMON: 8,
 };

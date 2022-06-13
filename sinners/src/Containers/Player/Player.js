@@ -8,11 +8,8 @@ import {
   checkWhatIsBellowMe,
 } from "./helper";
 import { BLOCK } from "../../Components/Block/type";
-import * as fetch from "isomorphic-fetch";
-import { CompressedPixelFormat } from "three";
 
 const Player = (props) => {
-  // console.log(props);
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
@@ -43,78 +40,6 @@ const Player = (props) => {
 
   // component did update
   useEffect(() => {
-    // PROMISES
-    const getPokemon = (name, success, error) => {
-      return new Promise((resolve, reject) => {
-        fetch(`https//pokeapi.co/api/v2/pokemon/${name}`)
-          .then(function (serverPromise) {
-            serverPromise
-              .json()
-              .then(function (j) {
-                // console.log(j);
-                resolve(j);
-              })
-              .catch(function (e) {
-                reject(e);
-              });
-          })
-          .catch(function (e) {
-            console.log(e);
-          });
-      });
-    };
-
-    getPokemon("ditto")
-      .then((value) => {
-        console.log("aaa", value);
-      })
-      .catch((e) => {
-        console.error("MY ERROR MESSAGES", e);
-      })
-      .finally(() => {
-        console.log("allways will be display");
-      });
-
-    // TO DO REFACTOR!!!!!!!!!!!!
-
-    // PROMISES sytax sugar (async await)
-    const getPokemonAsync = async () => {
-      const name = "ditto";
-      const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
-      const pokemon = await data.json();
-
-      //or
-      //   const pokemon = await getPokemon("ditto");
-
-      console.log(pokemon);
-    };
-
-    getPokemonAsync();
-
-    // GENERATOR
-    function* it() {
-      while (true) {
-        yield "check if this item is on the store";
-        yield "check if the use have a money on you bank account";
-        yield "dispaly information that everythink is all right";
-        yield "go to the stire";
-        return "done";
-      }
-    }
-
-    const iterator = it();
-
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-    console.log(iterator.next());
-
     if (checkWhatIsBellowMe(props.level) === BLOCK.WATER) {
       const promise1 = new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -123,16 +48,9 @@ const Player = (props) => {
       });
 
       promise1.then((e) => {
-        // console.log("i was there", e);
-        //  console.log("now!", playerCoordinatesFinder(props.level));
         props.fall();
       });
     }
-
-    //
-    //   setTimeout = setTimeout(() => props.fall(), 500);
-    //
-    // .console.log("player x,y:", playerCoordinatesFinder(props.level));
   });
 
   return <Box onClick={() => props.fetch("pikachu")} {...props} />;
