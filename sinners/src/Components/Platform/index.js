@@ -4,7 +4,7 @@ import background from "../../assets/background.png";
 const Platform = styled.div`
   background: url(${background});
   position: relative;
-  height: 1000px;
+  height: 600px;
   width: 1000px;
 `;
 

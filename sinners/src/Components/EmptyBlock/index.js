@@ -7,7 +7,7 @@ const EmptyBlock = styled.div`
   left: ${(props) => props.y * settings.tiles.width}px;
   width: ${settings.tiles.width}px;
   height: ${settings.tiles.height}px;
-  border: 1px solid black;
+  border: 0px solid black;
 `;
 
 export default EmptyBlock;

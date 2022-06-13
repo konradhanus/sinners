@@ -9,6 +9,7 @@ import Box from "../Components/Box";
 import EmptyBlock from "../Components/EmptyBlock";
 import Player from "../Containers/Player";
 import Tom from "../Components/Tom";
+import star from "../assets/star.png";
 import { BLOCKS } from "./type";
 
 const renderBlock = (tile, x, y) => {
@@ -29,6 +30,8 @@ const renderBlock = (tile, x, y) => {
       return <Box x={x} y={y} background={water} />;
     case BLOCKS.TOM:
       return <Tom x={x} y={y} background={tom} />;
+    case BLOCKS.STAR:
+      return <Box x={x} y={y} background={star} />;
     default:
       return <EmptyBlock x={x} y={y} />;
   }

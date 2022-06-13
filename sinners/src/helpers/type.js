@@ -7,4 +7,5 @@ export const BLOCKS = {
   BOX: 5,
   WATER: 6,
   TOM: 7,
+  STAR: 8,
 };

@@ -9,14 +9,29 @@ import {
 } from "./helper";
 import { BLOCKS } from "./../../helpers/type";
 import * as fetch from "isomorphic-fetch";
-import { CompressedPixelFormat } from "three";
+import actionCreators from "./../Score/action";
+import { connect } from "react-redux";
 
 const Player = (props) => {
   // console.log(props);
+
+  const justGoRight = () => {
+    checkWhatIsInFrontOfMe(props.level) === BLOCKS.EMPTY && props.goRight();
+  };
+
+  const isPlayerFoundStar = () => {
+    if (checkWhatIsInFrontOfMe(props.level) === BLOCKS.STAR) {
+      props.goRight();
+      props.increaseScore();
+      return false;
+    }
+    return true;
+  };
+
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
-        checkWhatIsInFrontOfMe(props.level) === BLOCKS.EMPTY && props.goRight();
+        isPlayerFoundStar() && justGoRight();
       }
       if (keyCode === 37) {
         checkWhatIsBehindMe(props.level) === BLOCKS.EMPTY && props.goLeft();
@@ -126,14 +141,9 @@ const Player = (props) => {
         props.fall();
       });
     }
-
-    //
-    //   setTimeout = setTimeout(() => props.fall(), 500);
-    //
-    // .console.log("player x,y:", playerCoordinatesFinder(props.level));
   });
 
   return <Box onClick={() => props.fetch("pikachu")} {...props} />;
 };
 
-export default Player;
+export default connect(null, actionCreators)(Player);
