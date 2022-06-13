@@ -34,13 +34,19 @@ const Player = (props) => {
         isPlayerFoundStar() && justGoRight();
       }
       if (keyCode === 37) {
-        checkWhatIsBehindMe(props.level) === BLOCKS.EMPTY && props.goLeft();
+        (checkWhatIsBehindMe(props.level) === BLOCKS.EMPTY ||
+          checkWhatIsBehindMe(props.level) === BLOCKS.STAR) &&
+          props.goLeft();
       }
       if (keyCode === 38) {
-        checkWhatIsAboveMe(props.level) === BLOCKS.EMPTY && props.jump();
+        (checkWhatIsAboveMe(props.level) === BLOCKS.EMPTY ||
+          checkWhatIsAboveMe(props.level) === BLOCKS.STAR) &&
+          props.jump();
       }
       if (keyCode === 40) {
-        checkWhatIsBellowMe(props.level) === BLOCKS.EMPTY && props.fall();
+        (checkWhatIsBellowMe(props.level) === BLOCKS.EMPTY ||
+          checkWhatIsBellowMe(props.level) === BLOCKS.STAR) &&
+          props.fall();
       }
     },
     [props]
