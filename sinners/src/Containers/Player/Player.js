@@ -7,7 +7,7 @@ import {
   checkWhatIsAboveMe,
   checkWhatIsBellowMe,
 } from "./helper";
-import { BLOCKS } from "./../../helpers/type";
+import { BLOCK } from "../../Components/Block/type";
 import * as fetch from "isomorphic-fetch";
 import { CompressedPixelFormat } from "three";
 
@@ -16,16 +16,16 @@ const Player = (props) => {
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
-        checkWhatIsInFrontOfMe(props.level) === BLOCKS.EMPTY && props.goRight();
+        checkWhatIsInFrontOfMe(props.level) === BLOCK.EMPTY && props.goRight();
       }
       if (keyCode === 37) {
-        checkWhatIsBehindMe(props.level) === BLOCKS.EMPTY && props.goLeft();
+        checkWhatIsBehindMe(props.level) === BLOCK.EMPTY && props.goLeft();
       }
       if (keyCode === 38) {
-        checkWhatIsAboveMe(props.level) === BLOCKS.EMPTY && props.jump();
+        checkWhatIsAboveMe(props.level) === BLOCK.EMPTY && props.jump();
       }
       if (keyCode === 40) {
-        checkWhatIsBellowMe(props.level) === BLOCKS.EMPTY && props.fall();
+        checkWhatIsBellowMe(props.level) === BLOCK.EMPTY && props.fall();
       }
     },
     [props]
@@ -75,6 +75,8 @@ const Player = (props) => {
         console.log("allways will be display");
       });
 
+    // TO DO REFACTOR!!!!!!!!!!!!
+
     // PROMISES sytax sugar (async await)
     const getPokemonAsync = async () => {
       const name = "ditto";
@@ -113,7 +115,7 @@ const Player = (props) => {
     console.log(iterator.next());
     console.log(iterator.next());
 
-    if (checkWhatIsBellowMe(props.level) === BLOCKS.WATER) {
+    if (checkWhatIsBellowMe(props.level) === BLOCK.WATER) {
       const promise1 = new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve(playerCoordinatesFinder(props.level));

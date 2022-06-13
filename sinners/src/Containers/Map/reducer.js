@@ -3,6 +3,7 @@ import level1 from "../../levels/level1";
 
 const initialLevel = JSON.parse(JSON.stringify(level1));
 
+// move to the saga
 const movement = (state, move, initLevel) => {
   let cooX = 0;
   let cooY = 0;

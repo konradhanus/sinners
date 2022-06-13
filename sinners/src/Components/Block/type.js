@@ -1,4 +1,4 @@
-export const BLOCKS = {
+export const BLOCK = {
   EMPTY: 0,
   DIRT_LEFT: 1,
   DIRT_MIDDLE: 2,
