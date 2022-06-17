@@ -9,25 +9,45 @@ import {
   checkWhatIsBellowMe,
 } from "./helper";
 import { BLOCK } from "../../Components/Block/type";
-import actionCreators from "../Score/action"
-import {actionCreators as playerActions, GO_RIGHT} from "./action";
+import actionCreators from "../Score/action";
+import {
+  actionCreators as playerActions,
+  GO_RIGHT,
+  GO_LEFT,
+  JUMP,
+  FALL,
+} from "./action";
 
 const Player = (props) => {
-
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
-        props.foundItem({ go: GO_RIGHT,  check: checkWhatIsInFrontOfMe, level: props.level});
-        // isPlayerFoundStar(props.goRight, checkWhatIsInFrontOfMe) && props.increaseScore();
+        props.foundItem({
+          go: GO_RIGHT,
+          check: checkWhatIsInFrontOfMe,
+          level: props.level,
+        });
       }
       if (keyCode === 37) {
-        // isPlayerFoundStar(props.goLeft, checkWhatIsBehindMe) && props.increaseScore();
+        props.foundItem({
+          go: GO_LEFT,
+          check: checkWhatIsBehindMe,
+          level: props.level,
+        });
       }
       if (keyCode === 38) {
-        // isPlayerFoundStar(props.jump, checkWhatIsAboveMe) && props.increaseScore();
+        props.foundItem({
+          go: JUMP,
+          check: checkWhatIsAboveMe,
+          level: props.level,
+        });
       }
       if (keyCode === 40) {
-        // isPlayerFoundStar(props.fall, checkWhatIsBellowMe) && props.increaseScore();
+        props.foundItem({
+          go: FALL,
+          check: checkWhatIsBellowMe,
+          level: props.level,
+        });
       }
     },
     [props]
@@ -61,4 +81,4 @@ const Player = (props) => {
   return <Box onClick={() => props.fetch("pikachu")} {...props} />;
 };
 
-export default connect(null, {...actionCreators, ...playerActions})(Player);
+export default connect(null, { ...actionCreators, ...playerActions })(Player);
