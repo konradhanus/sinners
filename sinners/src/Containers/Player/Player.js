@@ -10,10 +10,23 @@ import {
 import { BLOCK } from "../../Components/Block/type";
 
 const Player = (props) => {
+  const justGoRight = () => {
+    checkWhatIsInFrontOfMe(props.level) === BLOCK.EMPTY && props.goRight();
+  };
+
+  const isPlayerFoundStar = () => {
+    if (checkWhatIsInFrontOfMe(props.level) === BLOCK.STAR) {
+      props.goRight();
+      return true;
+    }
+    justGoRight();
+    return false;
+  };
+
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
-        checkWhatIsInFrontOfMe(props.level) === BLOCK.EMPTY && props.goRight();
+        isPlayerFoundStar();
       }
       if (keyCode === 37) {
         checkWhatIsBehindMe(props.level) === BLOCK.EMPTY && props.goLeft();

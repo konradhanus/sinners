@@ -3,11 +3,13 @@ import dirtMiddle from "../../assets/dirt2.png";
 import dirtRight from "../../assets/dirt3.png";
 import box from "../../assets/box.png";
 import player from "../../assets/hero.png";
+import star from "../../assets/star.png";
 import tom from "../../assets/tom.png";
 import water from "../../assets/water.png";
 import Box from "../Box";
 import EmptyBlock from "../EmptyBlock";
 import Player from "../../Containers/Player";
+import Star from "../Star";
 import Tom from "../Tom";
 import { BLOCK } from "./type";
 import Pokemon from "../../Containers/Pokemon";
@@ -42,6 +44,8 @@ const Block = ({ tile, x, y, pokemonSprite }) => {
           scale={2}
         />
       );
+    case BLOCK.STAR:
+      return <Star x={x} y={y} background={star} />;
     default:
       return <EmptyBlock x={x} y={y} />;
   }
