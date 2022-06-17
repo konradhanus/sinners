@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from "react";
+import { connect } from "react-redux";
 import Box from "../../Components/Box";
 import {
   playerCoordinatesFinder,
@@ -8,34 +9,25 @@ import {
   checkWhatIsBellowMe,
 } from "./helper";
 import { BLOCK } from "../../Components/Block/type";
+import actionCreators from "../Score/action"
+import {actionCreators as playerActions, GO_RIGHT} from "./action";
 
 const Player = (props) => {
-  const justGoRight = () => {
-    checkWhatIsInFrontOfMe(props.level) === BLOCK.EMPTY && props.goRight();
-  };
-
-  const isPlayerFoundStar = () => {
-    if (checkWhatIsInFrontOfMe(props.level) === BLOCK.STAR) {
-      props.goRight();
-      return true;
-    }
-    justGoRight();
-    return false;
-  };
 
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
-        isPlayerFoundStar();
+        props.foundItem({ go: GO_RIGHT,  check: checkWhatIsInFrontOfMe, level: props.level});
+        // isPlayerFoundStar(props.goRight, checkWhatIsInFrontOfMe) && props.increaseScore();
       }
       if (keyCode === 37) {
-        checkWhatIsBehindMe(props.level) === BLOCK.EMPTY && props.goLeft();
+        // isPlayerFoundStar(props.goLeft, checkWhatIsBehindMe) && props.increaseScore();
       }
       if (keyCode === 38) {
-        checkWhatIsAboveMe(props.level) === BLOCK.EMPTY && props.jump();
+        // isPlayerFoundStar(props.jump, checkWhatIsAboveMe) && props.increaseScore();
       }
       if (keyCode === 40) {
-        checkWhatIsBellowMe(props.level) === BLOCK.EMPTY && props.fall();
+        // isPlayerFoundStar(props.fall, checkWhatIsBellowMe) && props.increaseScore();
       }
     },
     [props]
@@ -69,4 +61,4 @@ const Player = (props) => {
   return <Box onClick={() => props.fetch("pikachu")} {...props} />;
 };
 
-export default Player;
+export default connect(null, {...actionCreators, ...playerActions})(Player);
