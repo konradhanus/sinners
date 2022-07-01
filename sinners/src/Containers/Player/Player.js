@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import Box from "../../Components/Box";
 import {
@@ -18,7 +18,12 @@ import {
   FALL,
 } from "./action";
 
+import useInterval from "../../hooks/useInterval";
+
 const Player = (props) => {
+  const [time, setTime] = useState(0);
+  const [jumpStart, setJumpStart] = useState(false);
+
   const handleUserKeyPres = useCallback(
     ({ key, keyCode }) => {
       if (keyCode === 39) {
@@ -36,11 +41,13 @@ const Player = (props) => {
         });
       }
       if (keyCode === 38) {
-        props.foundItem({
-          go: JUMP,
-          check: checkWhatIsAboveMe,
-          level: props.level,
-        });
+        console.log("jump", Date.now());
+        setJumpStart(true);
+        // props.foundItem({
+        //   go: JUMP,
+        //   check: checkWhatIsAboveMe,
+        //   level: props.level,
+        // });
       }
       if (keyCode === 40) {
         props.foundItem({
@@ -78,7 +85,26 @@ const Player = (props) => {
     }
   });
 
-  return <Box onClick={() => props.fetch("pikachu")} {...props} />;
+  const jumpEquation = (t) => {
+    const v0 = 10;
+    const p = 10;
+    const y0 = 0;
+    return v0 * t - p * Math.pow(t, 2) + y0;
+  };
+
+  useInterval(() => {
+    // Your custom logic here
+    if (jumpStart) {
+      setTime(time + 16);
+      console.log("timer player", time);
+      if (time >= 1000) {
+        setJumpStart(false);
+        setTime(0);
+      }
+    }
+  }, 16);
+
+  return <Box {...props} x={props.x - jumpEquation(time / 1000)} />;
 };
 
 export default connect(null, { ...actionCreators, ...playerActions })(Player);
