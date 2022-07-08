@@ -28,7 +28,7 @@ const movement = (state, move, initLevel) => {
   }
   if (move === "jump") {
     newState[cooX][cooY] = 0;
-    newState[cooX - 1][cooY] = 4;
+    newState[cooX - 2][cooY] = 4;
   }
   if (move === "fall") {
     newState[cooX][cooY] = 0;
