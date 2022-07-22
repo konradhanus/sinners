@@ -1,62 +1,49 @@
 import React, {useCallback, useEffect} from 'react';
 import useCanvas from './useCanvas';
+import Player from './Player';
+import Platform from './Platform';
+import GenericObject from './GenericObject';
+import { playerSpeed } from "./config";
+import background from '../../assets/background.png';
+import dirt1 from '../../assets/dirt1.png';
+import dirt2 from '../../assets/dirt2.png';
+import dirt3 from '../../assets/dirt3.png';
 
-const gravity = 0.5;
+console.log(dirt2);
 
-class Player{
-    constructor(ctx, canvas){
-        this.c = ctx;
-        this.canvas = canvas;
-        this.position ={
-            x: 100, 
-            y: 100
-        }
-        
-        this.velocity = {
-            x:0, 
-            y:0
-        }
-
-        this.width = 30
-        this.height = 30
-    }
-
-    draw() {
-        this.c.fillStyle = 'red';
-        this.c.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
-
-    update() {
-        this.draw();
-        this.position.y += this.velocity.y
-        this.position.x += this.velocity.x
-
-        if(this.position.y + this.height + this.velocity.y <= this.canvas.height)
-        {
-            this.velocity.y += gravity
-        }else{
-            this.velocity.y = 0;
-        }
-    }
+const keys = {
+  right: {
+    pressed: false
+  }, 
+  left: 
+  {
+    pressed: false
+  }
 }
 
+const createImage = (imageSrc) => {
+  const img = new Image();
+  img.src = imageSrc;
+  return img
+} 
 
 const NewGame = () => {
     const [player, setPlayer] = React.useState();
+    const [platforms, setPlatforms] = React.useState();
     const [ctxState, setCtxState] = React.useState();
     const [canvasState, setCanvasState] = React.useState();
-    const [isPressedKeyLeft, setIsPressedKeyLeft] = React.useState(false);
-    const [isPressedKeyRight, setIsPressedKeyRight] = React.useState(false);
+    const [genericObjects, setGenericObjects] = React.useState();
+
     const handleUserKeyDownPress = useCallback(
         ({ keyCode }) => {
           if (keyCode === 39) {
+            keys.right.pressed = true;
         //    console.log(' go right')
-           setIsPressedKeyRight(true);
         //    player.velocity.x = 1
           }
           if (keyCode === 37) {
+            keys.left.pressed = true;
             // console.log('go left');
-            setIsPressedKeyLeft(true);
             //    player.velocity.x = 1
             // player.velocity.x -= 20
           }
@@ -68,6 +55,7 @@ const NewGame = () => {
           if (keyCode === 40) {
             console.log('fall')
           }
+
         },
         [player]
       );
@@ -76,22 +64,24 @@ const NewGame = () => {
         ({ keyCode }) => {
           if (keyCode === 39) {
            console.log(' go right');
-           setIsPressedKeyRight(false);
+           keys.right.pressed = false;
         //    player.velocity.x += 0
           }
           if (keyCode === 37) {
             console.log('go left');
-            setIsPressedKeyLeft(false);
+            keys.left.pressed = false;
             // player.velocity.x -= 20
           }
           if (keyCode === 38) {
             console.log('jump', player);
 
-            player.velocity.y -= 20
+           
           }
           if (keyCode === 40) {
             console.log('fall')
           }
+
+          console.log('right', keys.right.pressed)
         },
         [player]
       ); 
@@ -108,36 +98,129 @@ const NewGame = () => {
         };
       }, [player]);
 
+    let scrollOffset = 0;
+
     const animate = () => {
         
         requestAnimationFrame(animate);
-        ctxState && canvasState && ctxState.clearRect(0,0, canvasState.width, canvasState.height);
-        if(player !== undefined){
+        if(ctxState && canvasState)
+        {
+            ctxState.fillStyle = "white";
+            ctxState.fillRect(
+                0,
+                0, 
+                canvasState.width, 
+                canvasState.height
+              );
+        }
+
+        if(genericObjects){
+          genericObjects.forEach(genericObject => {
+            genericObject.draw();
+          })
+        }
+
+        if(player !== undefined && platforms !== undefined){
             player.update();
             // console.log('a',isPressedKeyRight)
-            if(isPressedKeyRight)
-            {
-                player.velocity.x = 1;
-            }else if(isPressedKeyLeft)
-            {
-                player.velocity.x = -1;
-            }else{
+            if(keys.right.pressed && player.position.x < 400) {
+                player.velocity.x = playerSpeed;
+            } else if(keys.left.pressed && player.position.x > 100) {
+                player.velocity.x = -playerSpeed;
+            } else {
                 player.velocity.x = 0;
-            }
 
+                if(keys.right.pressed){
+                  scrollOffset += playerSpeed;
+
+                  platforms.forEach((platform)=>{
+                    platform.position.x -= playerSpeed
+                  })
+
+                  genericObjects.forEach((genericObject)=>{
+                    genericObject.position.x -= playerSpeed * 0.66
+                  })
+                 
+                } else  if(keys.left.pressed){
+
+                  platforms.forEach((platform)=>{
+                    scrollOffset -= playerSpeed;
+                    platform.position.x += playerSpeed
+                  })
+
+                  genericObjects.forEach((genericObject)=>{
+                    genericObject.position.x += playerSpeed * 0.66
+                  })
+                }
+            }
+            
+            // platform collision detection
+            platforms.forEach((platform)=> {
+            if(player.position.y + player.height <= platform.position.y &&
+               player.position.y + player.height + player.velocity.y >= platform.position.y && 
+               player.position.x + player.width >= platform.position.x && 
+               player.position.x <= platform.position.x + platform.width){
+              player.velocity.y = 0;
+            }
+          });
+
+          if(scrollOffset > 2000)
+          {
+            alert('You Win!!!')
+          }
+
+          if(player.position.y > canvasState.height)
+          {
+            document.location.reload(true)
+            // init(ctxState, canvasState);
+        
+          }
+        }
+
+        if(platforms !== undefined)
+        {
+          platforms.forEach((platform)=>{
+            platform.draw();
+          })
         }
 
     } 
     
-    
-    const canvasRef = useCanvas(([canvas, ctx]) => {
-        canvas.width= window.innerWidth;
-        canvas.height= window.innerHeight;
+    const init = (canvas, ctx) =>{
+        const dirtBlock1 = createImage(dirt1);
+        const dirtBlock2 = createImage(dirt2);
+        const dirtBlock3 = createImage(dirt3);
+       
+        const p =  new Player(ctx, canvas);
+        const pl1 = new Platform(ctx, canvas, -1, 470, dirtBlock1);
+        const pl2 = new Platform(ctx, canvas, dirtBlock1.width-2, 470, dirtBlock2);
+        const pl3 = new Platform(ctx, canvas, 2*dirtBlock2.width-2, 470, dirtBlock3);
 
-        const p = new Player(ctx, canvas);
-        setPlayer(p)
+        const pl4 = new Platform(ctx, canvas, 3*dirtBlock2.width+102, 470, dirtBlock1);
+        const pl5 = new Platform(ctx, canvas, 4*dirtBlock2.width+102, 470, dirtBlock2);
+        const pl6 = new Platform(ctx, canvas, 5*dirtBlock2.width+102, 470, dirtBlock3);
+
+        const platforms = [pl1, pl2, pl3, pl4, pl5, pl6];
+        
+        const g1 = new GenericObject(ctx, canvas, 0, 0, createImage(background))
+        const genericObjects = [g1]
+
+
+        setPlayer(p);
+        setPlatforms(platforms);
+        setGenericObjects(genericObjects);
         setCtxState(ctx);
         setCanvasState(canvas);
+        return p;
+        
+    }
+    
+    const canvasRef = useCanvas(([canvas, ctx]) => {
+        canvas.width= 1024;
+        canvas.height= 576;
+
+       
+        const p = init(canvas, ctx);
         p.update();
       });
     
