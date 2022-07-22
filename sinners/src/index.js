@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+// import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import NewGame from "./Components/NewGame";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <NewGame />
   </React.StrictMode>,
   document.getElementById("root")
 );
