@@ -2,11 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 // import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import NewGame from "./Components/NewGame";
+import Engine from "./Components/Engine";
+import level1 from './levels/level1';
 
 ReactDOM.render(
   <React.StrictMode>
-    <NewGame />
+    <Engine level={level1}/>
   </React.StrictMode>,
   document.getElementById("root")
 );

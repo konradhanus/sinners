@@ -3,31 +3,15 @@ import useCanvas from './useCanvas';
 import Player from './Player';
 import Platform from './Platform';
 import GenericObject from './GenericObject';
-import { playerSpeed } from "./config";
+import { playerSpeed, windowWidth, windowHeight } from "./config";
 import background from '../../assets/background.png';
 import dirt1 from '../../assets/dirt1.png';
 import dirt2 from '../../assets/dirt2.png';
 import dirt3 from '../../assets/dirt3.png';
+import createImage from './helpers/createImage';
+import keys from './helpers/keys';
 
-console.log(dirt2);
-
-const keys = {
-  right: {
-    pressed: false
-  }, 
-  left: 
-  {
-    pressed: false
-  }
-}
-
-const createImage = (imageSrc) => {
-  const img = new Image();
-  img.src = imageSrc;
-  return img
-} 
-
-const NewGame = () => {
+const Engine = ({level}) => {
     const [player, setPlayer] = React.useState();
     const [platforms, setPlatforms] = React.useState();
     const [ctxState, setCtxState] = React.useState();
@@ -38,24 +22,16 @@ const NewGame = () => {
         ({ keyCode }) => {
           if (keyCode === 39) {
             keys.right.pressed = true;
-        //    console.log(' go right')
-        //    player.velocity.x = 1
           }
           if (keyCode === 37) {
             keys.left.pressed = true;
-            // console.log('go left');
-            //    player.velocity.x = 1
-            // player.velocity.x -= 20
           }
           if (keyCode === 38) {
-            console.log('jump', player);
-
             player.velocity.y -= 20
           }
           if (keyCode === 40) {
             console.log('fall')
           }
-
         },
         [player]
       );
@@ -65,23 +41,17 @@ const NewGame = () => {
           if (keyCode === 39) {
            console.log(' go right');
            keys.right.pressed = false;
-        //    player.velocity.x += 0
           }
           if (keyCode === 37) {
             console.log('go left');
             keys.left.pressed = false;
-            // player.velocity.x -= 20
           }
           if (keyCode === 38) {
             console.log('jump', player);
-
-           
           }
           if (keyCode === 40) {
             console.log('fall')
           }
-
-          console.log('right', keys.right.pressed)
         },
         [player]
       ); 
@@ -171,9 +141,7 @@ const NewGame = () => {
 
           if(player.position.y > canvasState.height)
           {
-            document.location.reload(true)
-            // init(ctxState, canvasState);
-        
+            document.location.reload(true)        
           }
         }
 
@@ -186,7 +154,8 @@ const NewGame = () => {
 
     } 
     
-    const init = (canvas, ctx) =>{
+    const init = (canvas, ctx, level) => {
+        console.log(level);
         const dirtBlock1 = createImage(dirt1);
         const dirtBlock2 = createImage(dirt2);
         const dirtBlock3 = createImage(dirt3);
@@ -216,11 +185,10 @@ const NewGame = () => {
     }
     
     const canvasRef = useCanvas(([canvas, ctx]) => {
-        canvas.width= 1024;
-        canvas.height= 576;
+        canvas.width= windowWidth;
+        canvas.height= windowHeight;
 
-       
-        const p = init(canvas, ctx);
+        const p = init(canvas, ctx, level);
         p.update();
       });
     
@@ -229,4 +197,4 @@ const NewGame = () => {
     return <canvas ref={canvasRef}></canvas>
 }
 
-export default NewGame;
+export default Engine;
