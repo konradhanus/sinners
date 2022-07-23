@@ -3,15 +3,26 @@ import useCanvas from './useCanvas';
 import Player from './Player';
 import Platform from './Platform';
 import GenericObject from './GenericObject';
-import { playerSpeed, windowWidth, windowHeight } from "./config";
+import { playerSpeed, windowWidth, windowHeight, blockWidth } from "./config";
 import background from '../../assets/background.png';
-import dirt1 from '../../assets/dirt1.png';
-import dirt2 from '../../assets/dirt2.png';
-import dirt3 from '../../assets/dirt3.png';
+import {Toaster, toast} from 'react-hot-toast';
+import dirtLeft from "../../assets/dirt1.png";
+import dirtMiddle from "../../assets/dirt2.png";
+import dirtRight from "../../assets/dirt3.png";
+import box from "../../assets/box.png";
+import hero from "../../assets/hero.png";
+import star from "../../assets/star.png";
+import tom from "../../assets/tom.png";
+import water from "../../assets/water.png";
+
 import createImage from './helpers/createImage';
 import keys from './helpers/keys';
+import { BLOCK } from "../Block/type";
+
+const gameOver = false;
 
 const Engine = ({level}) => {
+
     const [player, setPlayer] = React.useState();
     const [platforms, setPlatforms] = React.useState();
     const [ctxState, setCtxState] = React.useState();
@@ -136,7 +147,11 @@ const Engine = ({level}) => {
 
           if(scrollOffset > 2000)
           {
-            alert('You Win!!!')
+            if(!gameOver){
+              gameOver = true
+              console.log('win');
+              
+            }
           }
 
           if(player.position.y > canvasState.height)
@@ -154,29 +169,54 @@ const Engine = ({level}) => {
 
     } 
     
+    const switchTile = (tile) => {
+          switch(tile) {
+          case BLOCK.DIRT_LEFT:
+            return dirtLeft;
+          case BLOCK.DIRT_MIDDLE:
+            return dirtMiddle;
+          case BLOCK.DIRT_RIGHT:
+            return dirtRight;
+          case BLOCK.PLAYER:
+            return hero;
+          case BLOCK.BOX:
+            return box;
+          case BLOCK.WATER:
+            return water;
+          case BLOCK.TOM:
+            return tom;
+          case BLOCK.STAR:
+            return star;
+      }
+    };
+
     const init = (canvas, ctx, level) => {
-        console.log(level);
-        const dirtBlock1 = createImage(dirt1);
-        const dirtBlock2 = createImage(dirt2);
-        const dirtBlock3 = createImage(dirt3);
-       
-        const p =  new Player(ctx, canvas);
-        const pl1 = new Platform(ctx, canvas, -1, 470, dirtBlock1);
-        const pl2 = new Platform(ctx, canvas, dirtBlock1.width-2, 470, dirtBlock2);
-        const pl3 = new Platform(ctx, canvas, 2*dirtBlock2.width-2, 470, dirtBlock3);
+  
 
-        const pl4 = new Platform(ctx, canvas, 3*dirtBlock2.width+102, 470, dirtBlock1);
-        const pl5 = new Platform(ctx, canvas, 4*dirtBlock2.width+102, 470, dirtBlock2);
-        const pl6 = new Platform(ctx, canvas, 5*dirtBlock2.width+102, 470, dirtBlock3);
+        const levelPlatforms = level.map((row,rowId)=>(
+          row.map((block,colId)=>{
+            // console.log(`${block}-${rowId}:${colId}`);
+            if(
+              block !== BLOCK.EMPTY && 
+              // block !== BLOCK.WATER && 
+              block !== BLOCK.STAR && 
+              block !== BLOCK.PLAYER && 
+              block !== BLOCK.POKEMON)
+            {
+              return new Platform(ctx, canvas, blockWidth*colId, blockWidth*rowId, createImage(switchTile(block)), blockWidth);
+            }
+          })
+        )).flatMap(n=>n).filter(f=>f!=undefined);
 
-        const platforms = [pl1, pl2, pl3, pl4, pl5, pl6];
+        // console.log(levelPlatforms);
         
         const g1 = new GenericObject(ctx, canvas, 0, 0, createImage(background))
         const genericObjects = [g1]
+        const p =  new Player(ctx, canvas, createImage(switchTile(BLOCK.PLAYER)), blockWidth);
 
-
+       
+        setPlatforms(levelPlatforms);
         setPlayer(p);
-        setPlatforms(platforms);
         setGenericObjects(genericObjects);
         setCtxState(ctx);
         setCanvasState(canvas);
@@ -189,12 +229,19 @@ const Engine = ({level}) => {
         canvas.height= windowHeight;
 
         const p = init(canvas, ctx, level);
-        p.update();
+        
+         p.update();
       });
     
     
     player && animate();
-    return <canvas ref={canvasRef}></canvas>
+    return <>
+        <Toaster
+      position="top-center"
+      reverseOrder={false}
+    />
+    <canvas ref={canvasRef}></canvas>
+    </>
 }
 
 export default Engine;

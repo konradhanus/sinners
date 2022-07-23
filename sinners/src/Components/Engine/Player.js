@@ -1,7 +1,10 @@
 import { gravity } from "./config";
 export default class Player{
-    constructor(ctx, canvas){
+    constructor(ctx, canvas, image, blockWidth){
+
+        
         this.c = ctx;
+        this.image = image;
         this.canvas = canvas;
         this.position ={
             x: 100, 
@@ -13,13 +16,13 @@ export default class Player{
             y:0
         }
 
-        this.width = 30
-        this.height = 30
+        this.width = blockWidth;
+        this.height = blockWidth;
     }
 
     draw() {
-        this.c.fillStyle = 'red';
-        this.c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    
+        this.c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
     }
 
     update() {
