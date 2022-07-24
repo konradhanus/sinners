@@ -23,6 +23,8 @@ const gameOver = false;
 
 const Engine = ({level}) => {
 
+    const [start, setStart] = React.useState(false)
+    const [cavnasState, seCanvasState] = React.useState();
     const [player, setPlayer] = React.useState();
     const [platforms, setPlatforms] = React.useState();
     const [ctxState, setCtxState] = React.useState();
@@ -156,7 +158,7 @@ const Engine = ({level}) => {
 
           if(player.position.y > canvasState.height)
           {
-            document.location.reload(true)        
+            //newGame();    
           }
         }
 
@@ -191,8 +193,8 @@ const Engine = ({level}) => {
     };
 
     const init = (canvas, ctx, level) => {
-  
 
+        console.log('test');
         const levelPlatforms = level.map((row,rowId)=>(
           row.map((block,colId)=>{
             // console.log(`${block}-${rowId}:${colId}`);
@@ -224,6 +226,10 @@ const Engine = ({level}) => {
         
     }
     
+    useEffect(() => {
+      // Your code here
+    }, []);
+
     const canvasRef = useCanvas(([canvas, ctx]) => {
         canvas.width= windowWidth;
         canvas.height= windowHeight;
@@ -233,6 +239,12 @@ const Engine = ({level}) => {
          p.update();
       });
     
+    const newGame = () => {
+      const canvas = canvasRef.current;
+      const ctx = canvasRef.current.getContext("2d");
+      const p = init(canvas, ctx, level);
+      p.update();
+    }
     
     player && animate();
     return <>
@@ -240,6 +252,7 @@ const Engine = ({level}) => {
       position="top-center"
       reverseOrder={false}
     />
+    <button onClick={newGame}>start</button>
     <canvas ref={canvasRef}></canvas>
     </>
 }
