@@ -1,176 +1,75 @@
 import React, {useCallback, useEffect} from 'react';
 import useCanvas from './useCanvas';
-import Player from './Player';
-import Platform from './Platform';
-import GenericObject from './GenericObject';
 import { playerSpeed, windowWidth, windowHeight, blockWidth } from "./config";
-import background from '../../assets/background.png';
 import {Toaster, toast} from 'react-hot-toast';
-import dirtLeft from "../../assets/dirt1.png";
-import dirtMiddle from "../../assets/dirt2.png";
-import dirtRight from "../../assets/dirt3.png";
-import box from "../../assets/box.png";
-import hero from "../../assets/hero.png";
-import star from "../../assets/star.png";
-import tom from "../../assets/tom.png";
-import water from "../../assets/water.png";
-
-import createImage from './helpers/createImage';
 import keys from './helpers/keys';
-import { BLOCK } from "../Block/type";
+import userKeyDownPress from './helpers/userKeyDownPress';
+import userKeyUpPress from './helpers/userKeyUpPress';
+import addEventListener from './helpers/addEventListener';
+import removeEventListener from './helpers/removeEventListener';
+import init from './helpers/init';
 
-const gameOver = false;
+let gameOver = false;
 
 const Engine = ({level}) => {
 
-    const [start, setStart] = React.useState(false)
-    const [cavnasState, seCanvasState] = React.useState();
     const [player, setPlayer] = React.useState();
     const [platforms, setPlatforms] = React.useState();
     const [ctxState, setCtxState] = React.useState();
     const [canvasState, setCanvasState] = React.useState();
     const [genericObjects, setGenericObjects] = React.useState();
 
-    const handleUserKeyDownPress = useCallback(
-        ({ keyCode }) => {
-          if (keyCode === 39) {
-            keys.right.pressed = true;
-          }
-          if (keyCode === 37) {
-            keys.left.pressed = true;
-          }
-          if (keyCode === 38) {
-            player.velocity.y -= 20
-          }
-          if (keyCode === 40) {
-            console.log('fall')
-          }
-        },
-        [player]
-      );
+    const handleUserKeyDownPress = useCallback(userKeyDownPress(player),[player]);
+    const handleUserKeyUpPress = useCallback(userKeyUpPress(player),[player]); 
 
-      const handleUserKeyUpPress = useCallback(
-        ({ keyCode }) => {
-          if (keyCode === 39) {
-           console.log(' go right');
-           keys.right.pressed = false;
-          }
-          if (keyCode === 37) {
-            console.log('go left');
-            keys.left.pressed = false;
-          }
-          if (keyCode === 38) {
-            console.log('jump', player);
-          }
-          if (keyCode === 40) {
-            console.log('fall')
-          }
-        },
-        [player]
-      ); 
+    let buttonStart;
 
     useEffect(() => {
         // component did mount
-        window.addEventListener("keydown", handleUserKeyDownPress);
-        window.addEventListener("keyup", handleUserKeyUpPress);
-    
+        addEventListener(handleUserKeyDownPress, handleUserKeyUpPress)
+      
         // component will unmount
         return () => {
-          window.removeEventListener("keydown", handleUserKeyDownPress);
-          window.removeEventListener("keyup", handleUserKeyUpPress);
+          removeEventListener(handleUserKeyDownPress, handleUserKeyUpPress);
         };
       }, [player]);
 
     let scrollOffset = 0;
 
- 
-    
-    const switchTile = (tile) => {
-          switch(tile) {
-          case BLOCK.DIRT_LEFT:
-            return dirtLeft;
-          case BLOCK.DIRT_MIDDLE:
-            return dirtMiddle;
-          case BLOCK.DIRT_RIGHT:
-            return dirtRight;
-          case BLOCK.PLAYER:
-            return hero;
-          case BLOCK.BOX:
-            return box;
-          case BLOCK.WATER:
-            return water;
-          case BLOCK.TOM:
-            return tom;
-          case BLOCK.STAR:
-            return star;
-      }
-    };
-
-    const init = (canvas, ctx, level) => {
-
-        const levelPlatforms = level.map((row,rowId)=>(
-          row.map((block,colId)=>{
-            // console.log(`${block}-${rowId}:${colId}`);
-            if(
-              block !== BLOCK.EMPTY && 
-              // block !== BLOCK.WATER && 
-              block !== BLOCK.STAR && 
-              block !== BLOCK.PLAYER && 
-              block !== BLOCK.POKEMON)
-            {
-              return new Platform(ctx, canvas, blockWidth*colId, blockWidth*rowId, createImage(switchTile(block)), blockWidth);
-            }
-          })
-        )).flatMap(n=>n).filter(f=>f!=undefined);
-
-        // console.log(levelPlatforms);
-        
-        const g1 = new GenericObject(ctx, canvas, 0, 0, createImage(background))
-        const genericObjects = [g1]
-        const p =  new Player(ctx, canvas, createImage(switchTile(BLOCK.PLAYER)), blockWidth);
-
-       
-        setPlatforms(levelPlatforms);
-        setPlayer(p);
-        setGenericObjects(genericObjects);
-        setCtxState(ctx);
-        setCanvasState(canvas);
-        p.update();
-        return p;
-        
-    }
-    
-    useEffect(() => {
-      // Your code here
-    }, []);
+   
 
     const canvasRef = useCanvas(([canvas, ctx]) => {
         canvas.width= windowWidth;
         canvas.height= windowHeight;
 
-        init(canvas, ctx, level);
+        init(canvas, ctx, level, setPlatforms, setPlayer, setGenericObjects, setCtxState, setCanvasState);
       });
     
     const newGame = (cRef) => {
       console.log('new game', cRef);
       const canvas = cRef.current;
       const ctx = cRef.current.getContext("2d");
-      init(canvas, ctx, level)
+      init(canvas, ctx, level, setPlatforms, setPlayer, setGenericObjects, setCtxState, setCanvasState)
     }
     
-    const animate = (gameOver) => {
-      const gameOver2 = gameOver;
+    const animate = (gameOver, buttonStart) => {
+      let gameOver2 = gameOver;
 
       if(player.position.y > canvasState.height)
       {
         if(!gameOver2)
         {
           console.log('raz', gameOver2);
+          toast.error("You lose");
+          console.log(buttonStart);
+          buttonStart.click();
           gameOver2 = true;
         }
             
       }
-      requestAnimationFrame(()=>animate(gameOver2));
+
+      requestAnimationFrame(()=>animate(gameOver2, buttonStart));
+
       if(ctxState && canvasState)
       {
           ctxState.fillStyle = "white";
@@ -252,14 +151,15 @@ const Engine = ({level}) => {
       }
 
   } 
-    console.log(gameOver);
-    player && animate(gameOver);
+    const startGame = new Promise((resolve) => { resolve(); });
+    startGame.then(() => { player && animate(gameOver,buttonStart)});
+
     return <>
         <Toaster
       position="top-center"
       reverseOrder={false}
     />
-    <button onClick={()=>newGame(canvasRef)}>start</button>
+    <button onClick={()=>newGame(canvasRef)} ref={start => buttonStart = start}>start</button>
     <canvas ref={canvasRef}></canvas>
     </>
 }
