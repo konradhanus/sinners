@@ -20,13 +20,21 @@ const Engine = ({ level }) => {
   const [ctxState, setCtxState] = React.useState();
   const [canvasState, setCanvasState] = React.useState();
   const [genericObjects, setGenericObjects] = React.useState();
-  
-  const setState = {
-    setPlatforms,
+  const [stats, setStats] = React.useState();
+
+  const state = {
+    player,
     setPlayer,
-    setGenericObjects,
+    platforms,
+    setPlatforms,
+    ctxState,
     setCtxState,
-    setCanvasState
+    canvasState,
+    setCanvasState,
+    genericObjects,
+    setGenericObjects,
+    stats, 
+    setStats
   }
 
   const handleUserKeyDownPress = useCallback(userKeyDownPress(player), [player]);
@@ -39,19 +47,22 @@ const Engine = ({ level }) => {
   const canvasRef = useCanvas(([canvas, ctx]) => {
     canvas.width = windowWidth;
     canvas.height = windowHeight;
-    init(canvas, ctx, level, setPlatforms, setPlayer, setGenericObjects, setCtxState, setCanvasState);
+    init(canvas, ctx, level, state);
   });
 
+  const onClickStart = () => newGame(canvasRef, level, state);
+
   const startGame = new Promise((resolve) => { resolve(); });
-  startGame.then(() => { player && animate(gameOver, buttonStart, player, canvasState, ctxState, genericObjects, platforms, keys, playerSpeed, scrollOffset) });
+  
+  startGame.then(() => {
+    player && animate(gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) });
 
   return <>
-    <Stats data={canvasRef}/>
     <Toaster
       position="top-center"
       reverseOrder={false}
     />
-    <button onClick={() => newGame(canvasRef, level, setState)} ref={start => buttonStart = start}>start</button>
+    <button onClick={onClickStart} ref={start => buttonStart = start}>start</button>
     <canvas ref={canvasRef}></canvas>
   </>
 }

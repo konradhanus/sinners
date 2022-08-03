@@ -6,32 +6,56 @@ import parallaxEffect from './parallaxEffect';
 import drawPlayfield from './drawPlayfield';
 
 import { toast } from 'react-hot-toast';
+let frameCounter = 0;
 
-const animate = (gameOver, buttonStart, player, canvasState, ctxState, genericObjects, platforms, keys, playerSpeed, scrollOffset) => {
+
+const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, timmy) => {
     let gameOver2 = gameOver;
+    frameCounter++;
 
-    if (player.position.y > canvasState.height) {
+    if (state.player.position.y > state.canvasState.height) {
       if (!gameOver2) {
         toast.error("You lose");
-        console.log(buttonStart);
         buttonStart.click();
         gameOver2 = true;
       }
 
     }
 
-    requestAnimationFrame(() => animate(gameOver2, buttonStart, player, canvasState, ctxState, genericObjects, platforms, keys, playerSpeed, scrollOffset));
-    drawPlayfield(ctxState, canvasState);
-    drawGenericsObjects(genericObjects);
+    requestAnimationFrame((timmy) => animate(gameOver2, buttonStart, state, keys, playerSpeed, scrollOffset, timmy));
 
-    if (player !== undefined && platforms !== undefined) {
-      player.update();
-      parallaxEffect(keys, player, playerSpeed, scrollOffset, platforms, genericObjects)
-      platformCollisionDetection(platforms, player);
+   
+
+    drawPlayfield(state.ctxState, state.canvasState);
+    drawGenericsObjects(state.genericObjects);
+
+    if (state.player !== undefined && state.platforms !== undefined) {
+      state.player.update();
+      parallaxEffect(keys, state.player, playerSpeed, scrollOffset, state.platforms, state.genericObjects)
+      platformCollisionDetection(state.platforms, state.player);
       ifGameOver(scrollOffset, gameOver);
     }
 
-    drawPlatforms(platforms);
+    drawPlatforms(state.platforms);
+
+
+    // if(!lastCalledTime) {
+    //   lastCalledTime = performance.now();
+    //   fps = 0;
+    //   return;
+    // }
+    // let delta = (performance.now() - lastCalledTime)/1000;
+    // lastCalledTime = performance.now();
+    // fps = 1/delta;
+    // console.log(fps);
+    // if(timmy){
+     
+    //   let diff = timmy - frameCounter;
+    //   console.log(timmy, diff, frameCounter);
+    //   state.stats.draw(diff);
+    // }
+    
+    state.stats.draw('test')
   }
 
 export default animate;

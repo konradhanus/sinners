@@ -1,4 +1,5 @@
 import { BLOCK } from "../../Block/type";
+import Stats from '../Stats';
 import Player from '../Player';
 import Platform from '../Platform';
 import GenericObject from '../GenericObject';
@@ -7,7 +8,7 @@ import createImage from './createImage';
 import switchTile from './switchTile';
 import background from '../../../assets/background.png';
 
-export default (canvas, ctx, level, setPlatforms, setPlayer, setGenericObjects, setCtxState, setCanvasState) => {
+export default (canvas, ctx, level, state) => {
 
     const levelPlatforms = level.map((row,rowId)=>(
       row.map((block,colId)=>{
@@ -29,13 +30,14 @@ export default (canvas, ctx, level, setPlatforms, setPlayer, setGenericObjects, 
     const g1 = new GenericObject(ctx, canvas, 0, 0, createImage(background))
     const genericObjects = [g1]
     const p =  new Player(ctx, canvas, createImage(switchTile(BLOCK.PLAYER)), blockWidth);
-
+    const s = new Stats(ctx, canvas)
    
-    setPlatforms(levelPlatforms);
-    setPlayer(p);
-    setGenericObjects(genericObjects);
-    setCtxState(ctx);
-    setCanvasState(canvas);
+    state.setPlatforms(levelPlatforms);
+    state.setPlayer(p);
+    state.setGenericObjects(genericObjects);
+    state.setCtxState(ctx);
+    state.setCanvasState(canvas);
+    state.setStats(s);
     p.update();
     return p;
     
