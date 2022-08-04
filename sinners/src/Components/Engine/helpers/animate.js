@@ -7,7 +7,8 @@ import drawPlayfield from './drawPlayfield';
 
 import { toast } from 'react-hot-toast';
 let frameCounter = 0;
-
+let time = 0;
+let FPS = 0;
 
 const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, timmy) => {
     let gameOver2 = gameOver;
@@ -55,7 +56,17 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, 
     //   state.stats.draw(diff);
     // }
     
-    state.stats.draw('test')
+
+
+    // timy - liczba renderow
+
+    if(performance.now() - time >= 500)
+    {
+      time = performance.now();
+      FPS = frameCounter*2;
+      frameCounter = 0;
+    }
+    state.stats.draw(`${FPS} fps`)
   }
 
 export default animate;

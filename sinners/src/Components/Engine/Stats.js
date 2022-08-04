@@ -12,7 +12,7 @@ class Stat{
         this.c.fillStyle = 'red';
         this.c.fillRect(this.position.x, this.position.y, this.width, this.height);
         this.c.fillStyle = 'white';
-        this.c.font = '50px serif';
+        this.c.font = '30px serif';
         this.c.fillText(text, this.position.x+5, this.position.y+95);
     }
 }
