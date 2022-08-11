@@ -63,6 +63,7 @@ const Engine = ({ level }) => {
       reverseOrder={false}
     />
     <button onClick={onClickStart} ref={start => buttonStart = start}>start</button>
+    
     <canvas ref={canvasRef}></canvas>
   </>
 }

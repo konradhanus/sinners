@@ -10,7 +10,10 @@ class Platform{
     }
 
     draw() {
-        this.c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height)
+        this.c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+        this.c.fillStyle = 'grey';
+        this.c.font = '16px serif';
+        this.c.fillText(`${this.position.x}, ${this.position.y}`, this.position.x+5, this.position.y-10);
     }
 }
 
