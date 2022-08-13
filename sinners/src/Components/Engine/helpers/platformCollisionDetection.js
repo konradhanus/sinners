@@ -1,3 +1,5 @@
+import { BLOCK } from "../../Block/type";
+
 const platformCollisionDetection = (platforms, player) => {
     platforms.forEach((platform)=> {
 
@@ -21,7 +23,7 @@ const platformCollisionDetection = (platforms, player) => {
       }
 
       // when something is above player
-      platforms.forEach((platform)=> {
+      platforms.forEach((platform, id)=> {
         const playerPositionFromTheTop = player.position.y + player.height;
        
         const playerIsBelowPlatform = 
@@ -40,6 +42,14 @@ const platformCollisionDetection = (platforms, player) => {
         {
           // slide to down
           player.velocity.y = 0.5;
+          
+          //check block
+          console.log('bum', id,  platform);
+
+          if(platform.type === BLOCK.DIRT_LEFT || platform.type === BLOCK.DIRT_MIDDLE || platform.type === BLOCK.DIRT_RIGHT){
+            platforms.splice(id,1);
+          }
+
         }
 
       });  

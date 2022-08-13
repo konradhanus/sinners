@@ -15,12 +15,12 @@ export default (canvas, ctx, level, state) => {
         // console.log(`${block}-${rowId}:${colId}`);
         if(
           block !== BLOCK.EMPTY && 
-          // block !== BLOCK.WATER && 
+          block !== BLOCK.WATER && 
           block !== BLOCK.STAR && 
           block !== BLOCK.PLAYER && 
           block !== BLOCK.POKEMON)
         {
-          return new Platform(ctx, canvas, blockWidth*colId, blockWidth*rowId, createImage(switchTile(block)), blockWidth);
+          return new Platform(ctx, canvas, blockWidth*colId, blockWidth*rowId, createImage(switchTile(block)), blockWidth, block);
         }
       })
     )).flatMap(n=>n).filter(f=>f!=undefined);
