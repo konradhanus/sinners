@@ -10,8 +10,8 @@ const platformCollisionDetection = (platforms, player) => {
       playerPositionFromTheTop + player.velocity.y >= platform.position.y;
 
       const playerAndPlatformAreOnTheSameAxisX = 
-        player.position.x + player.width >= platform.position.x && 
-        player.position.x <= platform.position.x + platform.width;
+        player.position.x + player.width > platform.position.x && 
+        player.position.x < platform.position.x + platform.width;
 
       const turnOffGravity = 0;
 
@@ -20,18 +20,6 @@ const platformCollisionDetection = (platforms, player) => {
         player.velocity.y = turnOffGravity;
       }
           
-      // player.velocity.x = 0;
-      
-      // 799
-      // if(player.position.x + player.width >= platform.position.x && 
-      //   playerPositionFromTheTop <= platform.position.y)
-      // {                 
-      //   // console.log('x', player.position.x + player.width,'<=', platform.position.x, player.position.x + player.width <= platform.position.x);
-      //   // console.log('y', playerPositionFromTheTop,'<=', platform.position.y, playerPositionFromTheTop <= platform.position.y);
-      //   player.velocity.x = 0;
-      // }
-
-      
     });
   }
 
