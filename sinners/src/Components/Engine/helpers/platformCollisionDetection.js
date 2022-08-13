@@ -1,7 +1,6 @@
 const platformCollisionDetection = (platforms, player) => {
     platforms.forEach((platform)=> {
 
-
       const playerPositionFromTheTop = player.position.y + player.height;
                                       
       const playerIsHigherThanPlatform = 
@@ -20,7 +19,10 @@ const platformCollisionDetection = (platforms, player) => {
       {
         player.velocity.y = turnOffGravity;
       }
-          // 799
+          
+      // player.velocity.x = 0;
+      
+      // 799
       // if(player.position.x + player.width >= platform.position.x && 
       //   playerPositionFromTheTop <= platform.position.y)
       // {                 

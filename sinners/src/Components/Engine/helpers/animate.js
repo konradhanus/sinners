@@ -13,7 +13,6 @@ let FPS = 0;
 const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, timmy) => {
     let gameOver2 = gameOver;
     frameCounter++;
-
     if (state.player.position.y > state.canvasState.height) {
       if (!gameOver2) {
         toast.error("You lose");
@@ -24,8 +23,6 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, 
     }
 
     requestAnimationFrame((timmy) => animate(gameOver2, buttonStart, state, keys, playerSpeed, scrollOffset, timmy));
-
-   
 
     drawPlayfield(state.ctxState, state.canvasState);
     drawGenericsObjects(state.genericObjects);
@@ -55,9 +52,6 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, 
     //   console.log(timmy, diff, frameCounter);
     //   state.stats.draw(diff);
     // }
-    
-
-
     // timy - liczba renderow
 
     if(performance.now() - time >= 500)
@@ -66,7 +60,11 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, 
       FPS = frameCounter*2;
       frameCounter = 0;
     }
-    state.stats.draw(`${FPS} fps`)
+    state.stats.draw(`${FPS} fps`, 
+    `left: ${keys.left.pressed}`,
+    `right ${keys.right.pressed}`, 
+    `${scrollOffset}`
+    )
   }
 
 export default animate;

@@ -1,6 +1,42 @@
-
 const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, genericObjects) => {
-        
+  // po nacisnieciu prawo
+  if(keys.right.pressed)
+  { 
+    // sprawdz kazda platforme 
+    platforms.forEach((platform) => {
+
+      const checkOnlyTheSameRow = player.position.y + player.height >= platform.position.y && 
+      player.position.y < platform.position.y;
+
+      const checkIfSomethingIsUpFrontOfPlayer = platform.position.x <= player.position.x+player.width;
+      const checkDistance = platform.position.x-player.position.x > 0;
+      if(checkOnlyTheSameRow && checkIfSomethingIsUpFrontOfPlayer && checkDistance)
+      {
+          playerSpeed = 0;
+      }
+    })
+  }
+
+  if(keys.left.pressed)
+  { 
+    // sprawdz kazda platforme 
+    platforms.forEach((platform) => {
+
+      const checkOnlyTheSameRow = player.position.y + player.height >= platform.position.y && 
+      player.position.y < platform.position.y;
+
+      const checkIfSomethingIsBackOfPlayer = platform.position.x < player.position.x+player.width;
+      const checkDistance = player.position.x - platform.position.x - platform.width < 1;
+
+
+      if(checkOnlyTheSameRow && checkIfSomethingIsBackOfPlayer && checkDistance)
+      {
+          console.log('z', checkIfSomethingIsBackOfPlayer, platform.position.x, '<', player.position.x+player.width)
+          playerSpeed = 0;
+      }
+    })
+  }
+
   if (keys.right.pressed && player.position.x < 400) {
     player.velocity.x = playerSpeed;
   } else if (keys.left.pressed && player.position.x > 100) {
@@ -20,7 +56,7 @@ const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, gene
       })
 
     } else if (keys.left.pressed) {
-
+      
       platforms.forEach((platform) => {
         scrollOffset -= playerSpeed;
         platform.position.x += playerSpeed
