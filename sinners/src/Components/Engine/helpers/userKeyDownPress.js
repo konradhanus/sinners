@@ -1,14 +1,22 @@
 import keys from './keys';
 
-export default (player) => ({ keyCode }) =>  {
+export default (player, platforms) => ({ keyCode }) =>  {
     if (keyCode === 39) {
       keys.right.pressed = true;
     }
     if (keyCode === 37) {
       keys.left.pressed = true;
     }
+
+    
     if (keyCode === 38) {
-      player.velocity.y -= 20
+      // check if is celling
+      // check dystance
+      // if distance <= 25 then velocyty.y less 
+
+      
+      
+        player.velocity.y -= 25
     }
     if (keyCode === 40) {
       console.log('fall')

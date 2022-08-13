@@ -37,7 +37,7 @@ const Engine = ({ level }) => {
     setStats
   }
 
-  const handleUserKeyDownPress = useCallback(userKeyDownPress(player), [player]);
+  const handleUserKeyDownPress = useCallback(userKeyDownPress(player, platforms), [player]);
   const handleUserKeyUpPress = useCallback(userKeyUpPress(player), [player]);
   useEventListener(handleUserKeyDownPress, handleUserKeyUpPress, player);
 
