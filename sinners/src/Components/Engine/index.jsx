@@ -13,7 +13,7 @@ import animate from './helpers/animate';
 
 let gameOver = false;
 
-const Engine = ({ level }) => {
+const Engine = ({ level, hero }) => {
 
   const [player, setPlayer] = React.useState();
   const [platforms, setPlatforms] = React.useState();
@@ -47,10 +47,10 @@ const Engine = ({ level }) => {
   const canvasRef = useCanvas(([canvas, ctx]) => {
     canvas.width = windowWidth;
     canvas.height = windowHeight;
-    init(canvas, ctx, level, state);
+    init(canvas, ctx, level, state, hero);
   });
 
-  const onClickStart = () => newGame(canvasRef, level, state);
+  const onClickStart = () => newGame(canvasRef, level, state, hero);
 
   const startGame = new Promise((resolve) => { resolve(); });
   

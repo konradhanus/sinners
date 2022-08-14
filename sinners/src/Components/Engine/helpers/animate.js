@@ -23,7 +23,6 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, 
 
     }
 
-    
 
     requestAnimationFrame((timmy) => setTimeout(()=>animate(gameOver2, buttonStart, state, keys, playerSpeed, scrollOffset, timmy),18));
     
