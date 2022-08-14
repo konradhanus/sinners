@@ -46,9 +46,9 @@ const platformCollisionDetection = (platforms, player) => {
           //check block
           console.log('bum', id,  platform);
 
-          if(platform.type === BLOCK.DIRT_LEFT || platform.type === BLOCK.DIRT_MIDDLE || platform.type === BLOCK.DIRT_RIGHT){
-            platforms.splice(id,1);
-          }
+          // if(platform.type === BLOCK.DIRT_LEFT || platform.type === BLOCK.DIRT_MIDDLE || platform.type === BLOCK.DIRT_RIGHT){
+          //   platforms.splice(id,1);
+          // }
 
         }
 

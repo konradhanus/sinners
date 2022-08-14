@@ -4,6 +4,7 @@ import dirtMiddle from "../../../assets/dirt2.png";
 import dirtRight from "../../../assets/dirt3.png";
 import box from "../../../assets/box.png";
 import hero from "../../../assets/hero.png";
+import hero_stand from "../../../assets/hero_stand.gif";
 import star from "../../../assets/star.png";
 import tom from "../../../assets/tom.png";
 import water from "../../../assets/water.png";
@@ -19,6 +20,8 @@ export default (tile) => {
       return dirtRight;
     case BLOCK.PLAYER:
       return hero;
+    case BLOCK.PLAYER_STAND:
+      return hero_stand;
     case BLOCK.BOX:
       return box;
     case BLOCK.WATER:

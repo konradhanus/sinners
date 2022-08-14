@@ -9,6 +9,7 @@ import { toast } from 'react-hot-toast';
 let frameCounter = 0;
 let time = 0;
 let FPS = 0;
+let time2 = 0;
 
 const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, timmy) => {
     let gameOver2 = gameOver;
@@ -22,8 +23,10 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, 
 
     }
 
-    requestAnimationFrame((timmy) => animate(gameOver2, buttonStart, state, keys, playerSpeed, scrollOffset, timmy));
+    
 
+    requestAnimationFrame((timmy) => setTimeout(()=>animate(gameOver2, buttonStart, state, keys, playerSpeed, scrollOffset, timmy),18));
+    
     drawPlayfield(state.ctxState, state.canvasState);
     drawGenericsObjects(state.genericObjects);
 
@@ -54,16 +57,17 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset, 
     // }
     // timy - liczba renderow
 
-    if(performance.now() - time >= 500)
+    if(performance.now() >= time + 1000)
     {
       time = performance.now();
-      FPS = frameCounter*2;
+      FPS = frameCounter;
       frameCounter = 0;
     }
     state.stats.draw(`${FPS} fps`, 
     `left: ${keys.left.pressed}`,
     `right ${keys.right.pressed}`, 
-    `${scrollOffset}`
+    `${performance.now()-time}`
+    // `${scrollOffset}`
     )
   }
 

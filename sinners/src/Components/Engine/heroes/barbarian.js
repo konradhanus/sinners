@@ -1,0 +1,54 @@
+import attack1 from './../../../assets/characters/barbarian/barbarian_1_attack_001.png';
+import attack2 from './../../../assets/characters/barbarian/barbarian_1_attack_002.png';
+import attack3 from './../../../assets/characters/barbarian/barbarian_1_attack_003.png';
+
+import crouch1 from './../../../assets/characters/barbarian/barbarian_1_crouch_001.png';
+import crouch2 from './../../../assets/characters/barbarian/barbarian_1_crouch_002.png';
+
+import die1 from './../../../assets/characters/barbarian/barbarian_1_die_001.png';
+import die2 from './../../../assets/characters/barbarian/barbarian_1_die_002.png';
+import die3 from './../../../assets/characters/barbarian/barbarian_1_die_003.png';
+import die4 from './../../../assets/characters/barbarian/barbarian_1_die_004.png';
+import die5 from './../../../assets/characters/barbarian/barbarian_1_die_005.png';
+
+import hit1 from './../../../assets/characters/barbarian/barbarian_1_hit_001.png';
+import hit2 from './../../../assets/characters/barbarian/barbarian_1_hit_002.png';
+
+import jump1 from './../../../assets/characters/barbarian/barbarian_1_jump_001.png';
+import jump2 from './../../../assets/characters/barbarian/barbarian_1_jump_002.png';
+import jump3 from './../../../assets/characters/barbarian/barbarian_1_jump_003.png';
+import jump4 from './../../../assets/characters/barbarian/barbarian_1_jump_004.png';
+
+import walk1 from './../../../assets/characters/barbarian/barbarian_1_walk_001.png';
+import walk2 from './../../../assets/characters/barbarian/barbarian_1_walk_002.png';
+import walk3 from './../../../assets/characters/barbarian/barbarian_1_walk_003.png';
+import walk4 from './../../../assets/characters/barbarian/barbarian_1_walk_004.png';
+import walk5 from './../../../assets/characters/barbarian/barbarian_1_walk_005.png';
+import walk6 from './../../../assets/characters/barbarian/barbarian_1_walk_006.png';
+import walk7 from './../../../assets/characters/barbarian/barbarian_1_walk_007.png';
+import walk8 from './../../../assets/characters/barbarian/barbarian_1_walk_008.png';
+
+import run1 from './../../../assets/characters/barbarian/barbarian_1_run_001.png';
+import run2 from './../../../assets/characters/barbarian/barbarian_1_run_002.png';
+import run3 from './../../../assets/characters/barbarian/barbarian_1_run_003.png';
+import run4 from './../../../assets/characters/barbarian/barbarian_1_run_004.png';
+import run5 from './../../../assets/characters/barbarian/barbarian_1_run_005.png';
+import run6 from './../../../assets/characters/barbarian/barbarian_1_run_006.png';
+import run7 from './../../../assets/characters/barbarian/barbarian_1_run_007.png';
+import run8 from './../../../assets/characters/barbarian/barbarian_1_run_008.png';
+
+import stand from './../../../assets/characters/barbarian/barbarian_1.png';
+
+import createImage from '../helpers/createImage';
+const barbarian = {
+    attack: [createImage(attack1), createImage(attack2), createImage(attack3)],
+    crouch: [createImage(crouch1), createImage(crouch2)],
+    die: [createImage(die1),createImage(die2),createImage(die3),createImage(die4),createImage(die5)],
+    hit: [createImage(hit1),createImage(hit2)],
+    jump: [createImage(jump1),createImage(jump2),createImage(jump3),createImage(jump4)],
+    run: [createImage(run1), createImage(run2),createImage(run3),createImage(run4),createImage(run5),createImage(run5),createImage(run6),createImage(run7),createImage(run8)],
+    walk: [createImage(walk1),createImage(walk2),createImage(walk3),createImage(walk4),createImage(walk5),createImage(walk6),createImage(walk7),createImage(walk8)],
+    stand: [createImage(stand)],
+}
+
+export default barbarian;

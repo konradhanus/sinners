@@ -3,6 +3,7 @@ import keys from './keys';
 export default  (player) => ({ keyCode }) => {
     if (keyCode === 39) {
      console.log(' go right');
+     player.rightPressed = false;
      keys.right.pressed = false;
     }
     if (keyCode === 37) {

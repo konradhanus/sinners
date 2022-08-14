@@ -7,6 +7,9 @@ import {  blockWidth } from "../config";
 import createImage from './createImage';
 import switchTile from './switchTile';
 import background from '../../../assets/background.png';
+import wizard from '../heroes/wizard';
+import soldier from '../heroes/soldier';
+import barbarian from '../heroes/barbarian';
 
 export default (canvas, ctx, level, state) => {
 
@@ -29,7 +32,7 @@ export default (canvas, ctx, level, state) => {
     
     const g1 = new GenericObject(ctx, canvas, 0, 0, createImage(background))
     const genericObjects = [g1]
-    const p =  new Player(ctx, canvas, createImage(switchTile(BLOCK.PLAYER)), blockWidth);
+    const p =  new Player(ctx, canvas, barbarian, blockWidth);
     const s = new Stats(ctx, canvas)
    
     state.setPlatforms(levelPlatforms);

@@ -2,6 +2,7 @@ import keys from './keys';
 
 export default (player, platforms) => ({ keyCode }) =>  {
     if (keyCode === 39) {
+      player.rightPressed = true;
       keys.right.pressed = true;
     }
     if (keyCode === 37) {
