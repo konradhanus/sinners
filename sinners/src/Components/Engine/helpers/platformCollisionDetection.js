@@ -41,7 +41,7 @@ const platformCollisionDetection = (platforms, player) => {
         if(playerIsBelowPlatform && playerAndPlatformAreOnTheSameAxisX && distance <= 0)
         {
           // slide to down
-          player.velocity.y = 0.5;
+          player.velocity.y = 0;
           
           //check block
           console.log('bum', id,  platform);

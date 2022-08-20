@@ -8,7 +8,6 @@ import userKeyUpPress from './helpers/userKeyUpPress';
 import useEventListener from './helpers/useEventListener';
 import init from './helpers/init';
 import newGame from './helpers/newGame';
-import Stats from './Stats';
 import animate from './helpers/animate';
 
 let gameOver = false;
