@@ -8,7 +8,7 @@ import userKeyUpPress from './helpers/userKeyUpPress';
 import useEventListener from './helpers/useEventListener';
 import init from './helpers/init';
 import newGame from './helpers/newGame';
-import animate from './helpers/animate';
+import { startAnimating } from './helpers/animate';
 
 let gameOver = false;
 
@@ -54,7 +54,8 @@ const Engine = ({ level, hero }) => {
   const startGame = new Promise((resolve) => { resolve(); });
   
   startGame.then(() => {
-    player && animate(gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) });
+    player && startAnimating(60, gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
+  });
 
   return <>
     <Toaster
