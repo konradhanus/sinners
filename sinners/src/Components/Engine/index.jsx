@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import useCanvas from './useCanvas';
-import { playerSpeed, windowWidth, windowHeight } from "./config";
+import { playerSpeed, windowWidth, windowHeight, fps } from "./config";
 import { Toaster } from 'react-hot-toast';
 import keys from './helpers/keys';
 import userKeyDownPress from './helpers/userKeyDownPress';
@@ -54,7 +54,7 @@ const Engine = ({ level, hero }) => {
   const startGame = new Promise((resolve) => { resolve(); });
   
   startGame.then(() => {
-    player && startAnimating(60, gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
+    player && startAnimating(fps, gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
   });
 
   return <>

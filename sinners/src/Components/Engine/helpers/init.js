@@ -1,8 +1,8 @@
 import { BLOCK } from "../../Block/type";
-import Stats from '../Stats';
-import Player from '../Player';
-import Platform from '../Platform';
-import GenericObject from '../GenericObject';
+import Stats from '../Objects/Stats';
+import Player from '../Objects/Player';
+import Platform from '../Objects/Platform';
+import GenericObject from '../Objects/GenericObject';
 import {  blockWidth } from "../config";
 import createImage from './createImage';
 import switchTile from './switchTile';

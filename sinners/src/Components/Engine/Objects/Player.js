@@ -1,14 +1,18 @@
-import { gravity } from "./config";
+import { gravity } from "../config";
 
 export default class Player{
     constructor(ctx, canvas, image, blockWidth){
+        this.defaultPostion = {
+            x: 100, 
+            y: 100
+        };
 
         this.c = ctx;
         this.image = image;
         this.canvas = canvas;
         this.position ={
-            x: 100, 
-            y: 100
+            x: this.defaultPostion.x, 
+            y: this.defaultPostion.y
         }
         
         this.velocity = {

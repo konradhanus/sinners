@@ -38,9 +38,20 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     frameCounter++;
     if (state.player.position.y > state.canvasState.height) {
       if (!gameOver2) {
-        toast.error("You lose");
+         stop = true;
+       
+       
         buttonStart.click();
         gameOver2 = true;
+        state.player.position = {
+          x: state.player.defaultPosition.x,
+          y: state.player.defaultPosition.y
+        }
+
+        if(gameOver2 === true)
+        {
+          toast.error("You lose");
+        }
       }
 
     }
