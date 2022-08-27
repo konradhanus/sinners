@@ -5,6 +5,11 @@ const keys = {
     left: 
     {
       pressed: false
+    }, 
+    up: 
+    {
+      pressed: false, 
+      onFly: false,
     }
   }
 

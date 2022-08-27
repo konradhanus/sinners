@@ -1,6 +1,6 @@
 import React from "react";
-import addEventListener from './addEventListener';
-import removeEventListener from './removeEventListener';
+import addEventListener from '../keyPress/addEventListener';
+import removeEventListener from '../keyPress/removeEventListener';
 
 const useEventListener = (handleUserKeyDownPress, handleUserKeyUpPress, player) => {
   React.useEffect(() => {

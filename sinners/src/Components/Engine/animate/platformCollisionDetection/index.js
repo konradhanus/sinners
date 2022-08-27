@@ -1,4 +1,4 @@
-import { BLOCK } from "../../Block/type";
+// import { BLOCK } from "../../Block/type";
 
 const platformCollisionDetection = (platforms, player) => {
     platforms.forEach((platform)=> {

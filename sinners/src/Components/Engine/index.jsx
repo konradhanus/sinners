@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
-import useCanvas from './useCanvas';
-import { playerSpeed, windowWidth, windowHeight, fps } from "./config";
+import useCanvas from './hooks/useCanvas';
+import { playerSpeed, windowWidth, windowHeight, fps } from "./globals/config";
 import { Toaster } from 'react-hot-toast';
-import keys from './helpers/keys';
-import userKeyDownPress from './helpers/userKeyDownPress';
-import userKeyUpPress from './helpers/userKeyUpPress';
-import useEventListener from './helpers/useEventListener';
+import keys from './globals/keys';
+import userKeyDownPress from './keyPress/userKeyDownPress';
+import userKeyUpPress from './keyPress/userKeyUpPress';
+import useEventListener from './hooks/useEventListener';
 import init from './helpers/init';
 import newGame from './helpers/newGame';
-import { startAnimating } from './helpers/animate';
+import { startAnimating } from './animate';
 
 let gameOver = false;
 
@@ -63,7 +63,6 @@ const Engine = ({ level, hero }) => {
       reverseOrder={false}
     />
     <button onClick={onClickStart} ref={start => buttonStart = start}>start</button>
-    
     <canvas ref={canvasRef}></canvas>
   </>
 }

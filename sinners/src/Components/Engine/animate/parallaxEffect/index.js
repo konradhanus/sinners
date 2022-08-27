@@ -37,11 +37,19 @@ const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, gene
     })
   }
 
+  if(keys.up.pressed && keys.up.onFly === false) {
+    keys.up.onFly = true;
+    player.velocity.y -= 25;
+    console.log('po',player.velocity.y)
+  } else if(keys.up.pressed && keys.up.onFly === true) {
+    console.log('po2',player.velocity.y) 
+  } 
+
   if (keys.right.pressed && player.position.x < 400) {
     player.velocity.x = playerSpeed;
   } else if (keys.left.pressed && player.position.x > 100) {
     player.velocity.x = -playerSpeed;
-  } else {
+  }else {
     player.velocity.x = 0;
 
     if (keys.right.pressed) {

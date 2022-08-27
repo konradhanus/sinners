@@ -1,4 +1,4 @@
-import keys from './keys';
+import keys from '../globals/keys';
 
 export default  (player) => ({ keyCode }) => {
     if (keyCode === 39) {
@@ -11,6 +11,7 @@ export default  (player) => ({ keyCode }) => {
       keys.left.pressed = false;
     }
     if (keyCode === 38) {
+      keys.up.pressed = false;
       console.log('jump', player);
     }
     if (keyCode === 40) {

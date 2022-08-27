@@ -1,9 +1,9 @@
 import platformCollisionDetection from './platformCollisionDetection';
-import ifGameOver from './ifGameOver';
-import drawPlatforms from './drawPlatforms';
-import drawGenericsObjects from './drawGenericObjects';
+import ifGameOver from '../helpers/ifGameOver';
+import drawPlatforms from '../draw/drawPlatforms';
+import drawGenericsObjects from '../draw/drawGenericObjects';
 import parallaxEffect from './parallaxEffect';
-import drawPlayfield from './drawPlayfield';
+import drawPlayfield from '../draw/drawPlayfield';
 
 import { toast } from 'react-hot-toast';
 let frameCounter = 0;
@@ -85,6 +85,10 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
 
     drawPlatforms(state.platforms);
     
+    if(state.player.velocity.y === 0)
+    {
+      keys.up.onFly = false;
+    }
 
     // if(!lastCalledTime) {
     //   lastCalledTime = performance.now();
@@ -115,9 +119,10 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     let currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
     // $results.text("Elapsed time= " + Math.round(sinceStart / 1000 * 100) / 100 + " secs @ " + currentFps + " fps.");
     state.stats.draw(`${currentFps} fps`, 
-    `left: ${keys.left.pressed}`,
+    `left: ${state.player.velocity.y}`,
     `right ${keys.right.pressed}`, 
-    `${performance.now()-time}`
+    `up ${keys.up.pressed}, onFly ${keys.up.onFly}`,
+    // `${performance.now()-time}`
     // `${scrollOffset}`
     )
   }

@@ -1,4 +1,4 @@
-import keys from './keys';
+import keys from '../globals/keys';
 
 export default (player, platforms) => ({ keyCode }) =>  {
     if (keyCode === 39) {
@@ -15,9 +15,9 @@ export default (player, platforms) => ({ keyCode }) =>  {
       // check dystance
       // if distance <= 25 then velocyty.y less 
 
+        keys.up.pressed = true;
       
-      
-        player.velocity.y -= 25
+        
     }
     if (keyCode === 40) {
       console.log('fall')

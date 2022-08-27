@@ -3,7 +3,7 @@ import Stats from '../Objects/Stats';
 import Player from '../Objects/Player';
 import Platform from '../Objects/Platform';
 import GenericObject from '../Objects/GenericObject';
-import {  blockWidth } from "../config";
+import {  blockWidth } from "../globals/config";
 import createImage from './createImage';
 import switchTile from './switchTile';
 import background from '../../../assets/background.png';

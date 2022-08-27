@@ -1,4 +1,4 @@
-import { gravity } from "../config";
+import { gravity } from "../globals/config";
 
 export default class Player{
     constructor(ctx, canvas, image, blockWidth){
