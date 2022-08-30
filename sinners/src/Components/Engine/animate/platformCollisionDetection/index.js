@@ -13,12 +13,13 @@ const platformCollisionDetection = (platforms, player) => {
 
       const playerAndPlatformAreOnTheSameAxisX = 
         player.position.x + player.width > platform.position.x && 
-        player.position.x < platform.position.x + platform.width;
+        player.position.x <= platform.position.x + player.width/2;
 
       const turnOffGravity = 0;
 
       if(playerIsHigherThanPlatform && playerAndPlatformAreOnTheSameAxisX)
       {
+        console.log('on', player.position.x + player.width, '>', platform.position.x, ' && ', player.position.x, '<=', platform.position.x + player.width/2)
         player.velocity.y = turnOffGravity;
       }
 
@@ -41,10 +42,10 @@ const platformCollisionDetection = (platforms, player) => {
         if(playerIsBelowPlatform && playerAndPlatformAreOnTheSameAxisX && distance <= 0)
         {
           // slide to down
-          player.velocity.y = 0;
-          
+          // player.velocity.y = turnOffGravity;
           //check block
-          console.log('bum', id,  platform);
+          
+          // console.log('bum', player.position.x + player.width, platform.position.x);
 
           // if(platform.type === BLOCK.DIRT_LEFT || platform.type === BLOCK.DIRT_MIDDLE || platform.type === BLOCK.DIRT_RIGHT){
           //   platforms.splice(id,1);

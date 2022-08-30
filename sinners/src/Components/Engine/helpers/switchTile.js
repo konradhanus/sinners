@@ -9,6 +9,7 @@ import star from "../../../assets/star.png";
 import tom from "../../../assets/tom.png";
 import water from "../../../assets/water.png";
 import { BLOCK } from "../../Block/type";
+import enemy from '../../../assets/tom.png';
 
 export default (tile) => {
     switch(tile) {
@@ -30,5 +31,7 @@ export default (tile) => {
       return tom;
     case BLOCK.STAR:
       return star;
+    case BLOCK.POKEMON:
+      return enemy;
 }
 };
