@@ -29,6 +29,15 @@ import walk6 from './../../../assets/characters/wizard/wizard_1_walk_006.png';
 import walk7 from './../../../assets/characters/wizard/wizard_1_walk_007.png';
 import walk8 from './../../../assets/characters/wizard/wizard_1_walk_008.png';
 
+import walkBack1 from './../../../assets/characters/wizard/wizard_1_walk_back_001.png';
+import walkBack2 from './../../../assets/characters/wizard/wizard_1_walk_back_002.png';
+import walkBack3 from './../../../assets/characters/wizard/wizard_1_walk_back_003.png';
+import walkBack4 from './../../../assets/characters/wizard/wizard_1_walk_back_004.png';
+import walkBack5 from './../../../assets/characters/wizard/wizard_1_walk_back_005.png';
+import walkBack6 from './../../../assets/characters/wizard/wizard_1_walk_back_006.png';
+import walkBack7 from './../../../assets/characters/wizard/wizard_1_walk_back_007.png';
+import walkBack8 from './../../../assets/characters/wizard/wizard_1_walk_back_008.png';
+
 import run1 from './../../../assets/characters/wizard/wizard_1_run_001.png';
 import run2 from './../../../assets/characters/wizard/wizard_1_run_002.png';
 import run3 from './../../../assets/characters/wizard/wizard_1_run_003.png';
@@ -49,6 +58,7 @@ const wizard = {
     jump: [createImage(jump1),createImage(jump2),createImage(jump3),createImage(jump4)],
     run: [createImage(run1), createImage(run2),createImage(run3),createImage(run4),createImage(run5),createImage(run5),createImage(run6),createImage(run7),createImage(run8)],
     walk: [createImage(walk1),createImage(walk2),createImage(walk3),createImage(walk4),createImage(walk5),createImage(walk6),createImage(walk7),createImage(walk8)],
+    walkBack: [createImage(walkBack1),createImage(walkBack2),createImage(walkBack3),createImage(walkBack4),createImage(walkBack5),createImage(walkBack6),createImage(walkBack7),createImage(walkBack8)],
     stand: [createImage(stand)],
 }
 
