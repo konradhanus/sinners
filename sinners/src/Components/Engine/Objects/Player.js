@@ -24,16 +24,18 @@ export default class Player{
         this.height = blockWidth;
         this.sprites = {
             stand:this.image.stand,
-            run: this.image.run
+            run: this.image.run, 
+            walkBack: this.image.walkBack
         }
 
         this.currentSprite = this.sprites.stand;
         this.frame = 0;
         this.rightPressed = false;
+        this.leftPressed = false;
     }
 
     draw() {
-        this.currentSprite = this.rightPressed && this.frame%8 !== 0 ? this.sprites.run[this.frame%8] : this.sprites.stand[0]
+        this.currentSprite = this.rightPressed && this.frame+1%8 !== 0 ? this.sprites.run[this.frame%8] : this.leftPressed && this.frame+1%8 !== 0 ? this.sprites.walkBack[this.frame%8] : this.sprites.stand[0]
         this.c.drawImage(this.currentSprite, 10, 10, 40,40, this.position.x, this.position.y, this.width, this.height)
         this.c.fillStyle = 'grey';
         this.c.font = '30px serif';
