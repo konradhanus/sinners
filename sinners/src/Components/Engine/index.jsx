@@ -16,6 +16,7 @@ const Engine = ({ level, hero }) => {
 
   const [player, setPlayer] = React.useState();
   const [platforms, setPlatforms] = React.useState();
+  const [enemies, setEnemies] = React.useState();
   const [ctxState, setCtxState] = React.useState();
   const [canvasState, setCanvasState] = React.useState();
   const [genericObjects, setGenericObjects] = React.useState();
@@ -33,7 +34,9 @@ const Engine = ({ level, hero }) => {
     genericObjects,
     setGenericObjects,
     stats, 
-    setStats
+    setStats, 
+    enemies, 
+    setEnemies
   }
 
   const handleUserKeyDownPress = useCallback(userKeyDownPress(player, platforms), [player]);

@@ -2,6 +2,7 @@ import { BLOCK } from "../../Block/type";
 import Stats from '../Objects/Stats';
 import Player from '../Objects/Player';
 import Platform from '../Objects/Platform';
+import Enemy from '../Objects/Enemy';
 import GenericObject from '../Objects/GenericObject';
 import {  blockWidth } from "../globals/config";
 import createImage from './createImage';
@@ -21,7 +22,7 @@ export default (canvas, ctx, level, state, hero) => {
           block !== BLOCK.WATER && 
           block !== BLOCK.STAR && 
           block !== BLOCK.PLAYER && 
-          block !== BLOCK.POKEMON)
+          block !== BLOCK.ENEMY)
         {
           return new Platform(ctx, canvas, blockWidth*colId, blockWidth*rowId, createImage(switchTile(block)), blockWidth, block);
         }
@@ -34,14 +35,28 @@ export default (canvas, ctx, level, state, hero) => {
     const genericObjects = [g1]
     const p =  new Player(ctx, canvas, selectedHero, blockWidth);
     const s = new Stats(ctx, canvas)
-   
+
+    const enemies = level.map((row,rowId)=>(
+      row.map((block,colId)=>{
+        // console.log(`${block}-${rowId}:${colId}`);
+        if(block === BLOCK.ENEMY)
+        {
+          return new Enemy(ctx, canvas, blockWidth*colId, blockWidth*rowId, blockWidth);
+        }
+      })
+    )).flatMap(n=>n).filter(f=>f!=undefined);
+
     state.setPlatforms(levelPlatforms);
     state.setPlayer(p);
     state.setGenericObjects(genericObjects);
     state.setCtxState(ctx);
     state.setCanvasState(canvas);
     state.setStats(s);
+    state.setEnemies(enemies);
     p.update();
+    enemies.map((e)=>{
+      e.update();
+    })
     return p;
     
 }

@@ -4,6 +4,7 @@ import drawPlatforms from '../draw/drawPlatforms';
 import drawGenericsObjects from '../draw/drawGenericObjects';
 import parallaxEffect from './parallaxEffect';
 import drawPlayfield from '../draw/drawPlayfield';
+import drawEnemies from '../draw/drawEnemies';
 
 import { toast } from 'react-hot-toast';
 let frameCounter = 0;
@@ -83,7 +84,13 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
       ifGameOver(scrollOffset, gameOver);
     }
 
+    state.enemies.map((e)=>{
+      e.update();
+    })
+    console.log('e', state.enemies)
+    drawEnemies(state.enemies);
     drawPlatforms(state.platforms);
+    
     
     if(state.player.velocity.y === 0)
     {
