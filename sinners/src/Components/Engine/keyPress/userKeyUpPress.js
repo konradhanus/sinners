@@ -8,9 +8,11 @@ export default  (player) => ({ keyCode }) => {
     }
     if (keyCode === 37) {
       console.log('go left');
+      player.leftPressed = false;
       keys.left.pressed = false;
     }
     if (keyCode === 38) {
+      player.upPressed = false;
       keys.up.pressed = false;
       console.log('jump', player);
     }

@@ -6,6 +6,7 @@ export default (player, platforms) => ({ keyCode }) =>  {
       keys.right.pressed = true;
     }
     if (keyCode === 37) {
+      player.leftPressed = true;
       keys.left.pressed = true;
     }
 
@@ -15,6 +16,7 @@ export default (player, platforms) => ({ keyCode }) =>  {
       // check dystance
       // if distance <= 25 then velocyty.y less 
 
+        player.upPressed = true;
         keys.up.pressed = true;
       
         
