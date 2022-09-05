@@ -11,6 +11,7 @@ import background from '../../../assets/background.png';
 import wizard from '../heroes/wizard';
 import soldier from '../heroes/soldier';
 import barbarian from '../heroes/barbarian';
+import enemy from '../heroes/enemy';
 
 export default (canvas, ctx, level, state, hero) => {
 
@@ -41,7 +42,7 @@ export default (canvas, ctx, level, state, hero) => {
         // console.log(`${block}-${rowId}:${colId}`);
         if(block === BLOCK.ENEMY)
         {
-          return new Enemy(ctx, canvas, blockWidth*colId, blockWidth*rowId, blockWidth);
+          return new Enemy(ctx, canvas, enemy, blockWidth*colId, blockWidth*rowId, blockWidth);
         }
       })
     )).flatMap(n=>n).filter(f=>f!=undefined);

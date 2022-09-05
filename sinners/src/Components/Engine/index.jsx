@@ -9,7 +9,6 @@ import useEventListener from './hooks/useEventListener';
 import init from './helpers/init';
 import newGame from './helpers/newGame';
 import { startAnimating } from './animate';
-
 let gameOver = false;
 
 const Engine = ({ level, hero }) => {
@@ -47,9 +46,21 @@ const Engine = ({ level, hero }) => {
   let scrollOffset = 0;
 
   const canvasRef = useCanvas(([canvas, ctx]) => {
-    canvas.width = windowWidth;
-    canvas.height = windowHeight;
+    // canvas.width = windowWidth;
+    // canvas.height = windowHeight;
+
+    function setSize(canvas){
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight-4;
+    }
+
+    setSize(canvas);
+
+    window.addEventListener('resize',()=>{
+      setSize(canvas);
+    })
     init(canvas, ctx, level, state, hero);
+  
   });
 
   const onClickStart = () => newGame(canvasRef, level, state, hero);
@@ -65,7 +76,7 @@ const Engine = ({ level, hero }) => {
       position="top-center"
       reverseOrder={false}
     />
-    <button onClick={onClickStart} ref={start => buttonStart = start}>start</button>
+    {/* <button style={{visibility: 'none'}} onClick={onClickStart} ref={start => buttonStart = start}>start</button> */}
     <canvas ref={canvasRef}></canvas>
   </>
 }
