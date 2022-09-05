@@ -57,7 +57,6 @@ export default (canvas, ctx, level, state, hero) => {
     state.setStats(s);
     state.setEnemies(enemies);
     state.setGameOver(g);
-    
     p.update();
     enemies.map((e)=>{
       e.update();

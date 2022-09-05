@@ -27,15 +27,18 @@ export function startAnimating(fps, gameOver, buttonStart, state, keys, playerSp
   animate(gameOver, buttonStart, state, keys, playerSpeed, scrollOffset);
 }
 
-
+const i = 100;
 const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) => {
 
+  console.log(i)
 
     // stop
     if (stop) {
-      
-      return;
-    }
+      state.gameOver.draw();
+      // toast.error("You lose");
+      i = i-1;
+      i > 0 && requestAnimationFrame(()=>animate(false, buttonStart, state, keys, playerSpeed, scrollOffset));
+    }else{
 
     let gameOver2 = gameOver;
     frameCounter++;
@@ -92,7 +95,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     if(state.player !== undefined && state.enemies !== undefined)
     {
       // console.log('a', state.enemies)
-      enemyColistionDetection(state.enemies, state.player, state.platforms);
+      enemyColistionDetection(state.enemies, state.player, state.platforms, state.ctx, state.canvasState);
     }
 
     state.enemies.map((e)=>{
@@ -131,7 +134,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     //   FPS = frameCounter;
     //   frameCounter = 0;
     // }
-    state.gameOver.draw();
+   
 
     let sinceStart = now - startTime;
     let currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
@@ -144,6 +147,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     // `${scrollOffset}`
     )
   }
+}
 
   }
 

@@ -12,16 +12,9 @@ class GameOver{
     }
 
     draw() {
-        if(this.isVisible)
-        {
-            this.c.drawImage(createImage(gameOver), window.innerWidth/4, window.innerHeight/4, 600,600)
-        }
+        this.c.drawImage(createImage(gameOver), window.innerWidth/4, window.innerHeight/4, 600,600)
     }
 
-    gameOver(){
-        this.isVisible = true;
-        console.log('gameOver');
-    }
 }
 
 export default GameOver;
