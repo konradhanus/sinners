@@ -1,3 +1,5 @@
+import { gravity } from "../globals/config";
+
 class Enemy{
     constructor(ctx, canvas, image, x, y, blockWidth) {
         this.c = ctx;
@@ -29,7 +31,20 @@ class Enemy{
     update(){
         this.frame++;
         this.draw();
+
+        this.position.y += this.velocity.y
         this.position.x += this.velocity.x
+
+        if(this.position.y + 
+           this.height + 
+           this.velocity.y <= this.canvas.height
+        )
+        {
+            this.velocity.y += gravity
+        }else{
+            // this.velocity.y = 0;
+        }
+
     }
 }
 

@@ -1,4 +1,5 @@
 import platformCollisionDetection from './platformCollisionDetection';
+import enemyColistionDetection from './enemyColistionDetection';
 import ifGameOver from '../helpers/ifGameOver';
 import drawPlatforms from '../draw/drawPlatforms';
 import drawGenericsObjects from '../draw/drawGenericObjects';
@@ -81,7 +82,14 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
       state.player.update();
       parallaxEffect(keys, state.player, playerSpeed, scrollOffset, state.platforms, state.genericObjects)
       platformCollisionDetection(state.platforms, state.player);
+      
       ifGameOver(scrollOffset, gameOver);
+    }
+
+    if(state.player !== undefined && state.enemies !== undefined)
+    {
+      console.log('a', state.enemies)
+      enemyColistionDetection(state.enemies, state.player, state.platforms);
     }
 
     state.enemies.map((e)=>{
