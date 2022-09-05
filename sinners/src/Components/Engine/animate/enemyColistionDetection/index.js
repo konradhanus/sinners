@@ -17,10 +17,10 @@ const enemyCollisionDetection = (enemies, player, platforms) => {
 
       if(playerIsHigherThanEnemy&& playerAndEnemyAreOnTheSameAxisX)
       {
-        console.log('on', player.position.x + player.width, '>', enemy.position.x, ' && ', player.position.x, '<=', enemy.position.x + player.width/2)
+        // console.log('on', player.position.x + player.width, '>', enemy.position.x, ' && ', player.position.x, '<=', enemy.position.x + player.width/2)
         player.velocity.y = turnOffGravity;
+        enemy.kill();
       }
-    
     });
 
     platforms.forEach((platform) => {
@@ -42,7 +42,7 @@ const enemyCollisionDetection = (enemies, player, platforms) => {
 
       if(enemyIsHigherThanPlatform && enemyAndPlatformAreOnTheSameAxisX)
       {
-        console.log('on', enemy.position.x + enemy.width, '>', platform.position.x, ' && ', enemy.position.x, '<=', platform.position.x + enemy.width/2)
+        // console.log('on', enemy.position.x + enemy.width, '>', platform.position.x, ' && ', enemy.position.x, '<=', platform.position.x + enemy.width/2)
         enemy.velocity.y = turnOffGravity;
       }
     });

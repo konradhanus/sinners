@@ -23,7 +23,7 @@ export function startAnimating(fps, gameOver, buttonStart, state, keys, playerSp
   fpsInterval = 1000 / fps;
   then = Date.now();
   startTime = then;
-  console.log(startTime);
+  // console.log(startTime);
   animate(gameOver, buttonStart, state, keys, playerSpeed, scrollOffset);
 }
 
@@ -33,6 +33,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
 
     // stop
     if (stop) {
+      
       return;
     }
 
@@ -77,25 +78,27 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
 
     drawPlayfield(state.ctxState, state.canvasState);
     drawGenericsObjects(state.genericObjects);
+    
 
     if (state.player !== undefined && state.platforms !== undefined) {
       state.player.update();
-      parallaxEffect(keys, state.player, playerSpeed, scrollOffset, state.platforms, state.genericObjects)
+      parallaxEffect(keys, state.player, playerSpeed, scrollOffset, state.platforms, state.genericObjects, state.enemies)
       platformCollisionDetection(state.platforms, state.player);
       
-      ifGameOver(scrollOffset, gameOver);
+      stop = ifGameOver(scrollOffset, gameOver, state.player, state.enemies, stop);
+
     }
 
     if(state.player !== undefined && state.enemies !== undefined)
     {
-      console.log('a', state.enemies)
+      // console.log('a', state.enemies)
       enemyColistionDetection(state.enemies, state.player, state.platforms);
     }
 
     state.enemies.map((e)=>{
       e.update();
     })
-    console.log('e', state.enemies)
+    // console.log('e', state.enemies)
     drawEnemies(state.enemies);
     drawPlatforms(state.platforms);
     
@@ -128,7 +131,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     //   FPS = frameCounter;
     //   frameCounter = 0;
     // }
-
+    state.gameOver.draw();
 
     let sinceStart = now - startTime;
     let currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;

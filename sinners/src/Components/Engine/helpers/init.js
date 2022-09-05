@@ -12,6 +12,7 @@ import wizard from '../heroes/wizard';
 import soldier from '../heroes/soldier';
 import barbarian from '../heroes/barbarian';
 import enemy from '../heroes/enemy';
+import GameOver from "../Objects/GameOver";
 
 export default (canvas, ctx, level, state, hero) => {
 
@@ -35,7 +36,8 @@ export default (canvas, ctx, level, state, hero) => {
     const g1 = new GenericObject(ctx, canvas, 0, 0, createImage(background))
     const genericObjects = [g1]
     const p =  new Player(ctx, canvas, selectedHero, blockWidth);
-    const s = new Stats(ctx, canvas)
+    const s = new Stats(ctx, canvas);
+    const g = new GameOver(ctx, canvas);
 
     const enemies = level.map((row,rowId)=>(
       row.map((block,colId)=>{
@@ -54,6 +56,8 @@ export default (canvas, ctx, level, state, hero) => {
     state.setCanvasState(canvas);
     state.setStats(s);
     state.setEnemies(enemies);
+    state.setGameOver(g);
+    
     p.update();
     enemies.map((e)=>{
       e.update();

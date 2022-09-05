@@ -19,7 +19,7 @@ const platformCollisionDetection = (platforms, player) => {
 
       if(playerIsHigherThanPlatform && playerAndPlatformAreOnTheSameAxisX)
       {
-        console.log('on', player.position.x + player.width, '>', platform.position.x, ' && ', player.position.x, '<=', platform.position.x + player.width/2)
+        // console.log('on', player.position.x + player.width, '>', platform.position.x, ' && ', player.position.x, '<=', platform.position.x + player.width/2)
         player.velocity.y = turnOffGravity;
       }
 
@@ -37,7 +37,7 @@ const platformCollisionDetection = (platforms, player) => {
         player.position.x + player.width > platform.position.x && 
         player.position.x < platform.position.x + platform.width;
 
-        const distance = player.position.y + player.velocity.y - platform.position.y-platform.height;
+        const distance = player.position.y + player.velocity.y - platform.position.y - platform.height;
 
         if(playerIsBelowPlatform && playerAndPlatformAreOnTheSameAxisX && distance <= 0)
         {

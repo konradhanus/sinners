@@ -1,4 +1,4 @@
-const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, genericObjects) => {
+const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, genericObjects, enemies) => {
   // po nacisnieciu prawo
   if(keys.right.pressed)
   { 
@@ -28,10 +28,9 @@ const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, gene
       const checkIfSomethingIsBackOfPlayer = platform.position.x < player.position.x+player.width;
       const checkDistance = player.position.x - platform.position.x - platform.width < 1;
 
-
       if(checkOnlyTheSameRow && checkIfSomethingIsBackOfPlayer && checkDistance)
       {
-          console.log('z', checkIfSomethingIsBackOfPlayer, platform.position.x, '<', player.position.x+player.width)
+          // console.log('z', checkIfSomethingIsBackOfPlayer, platform.position.x, '<', player.position.x+player.width)
           playerSpeed = 0;
       }
     })
@@ -40,9 +39,9 @@ const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, gene
   if(keys.up.pressed && keys.up.onFly === false) {
     keys.up.onFly = true;
     player.velocity.y -= 25;
-    console.log('po',player.velocity.y)
+    // console.log('po',player.velocity.y)
   } else if(keys.up.pressed && keys.up.onFly === true) {
-    console.log('po2',player.velocity.y) 
+    // console.log('po2',player.velocity.y) 
   } 
 
   if (keys.right.pressed && player.position.x < 400) {
@@ -59,6 +58,10 @@ const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, gene
         platform.position.x -= playerSpeed
       })
 
+      enemies.forEach((enemy) => {
+        enemy.position.x -= playerSpeed
+      })
+
       genericObjects.forEach((genericObject) => {
         genericObject.position.x -= playerSpeed * 0.66
       })
@@ -68,6 +71,10 @@ const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, gene
       platforms.forEach((platform) => {
         scrollOffset -= playerSpeed;
         platform.position.x += playerSpeed
+      })
+
+      enemies.forEach((enemy) => {
+        enemy.position.x += playerSpeed
       })
 
       genericObjects.forEach((genericObject) => {
