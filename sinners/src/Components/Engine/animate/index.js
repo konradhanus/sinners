@@ -15,6 +15,8 @@ let time2 = 0;
 
 
 let stop = false;
+let end = false;
+
 let frameCount = 0;
 // let $results = $("#results");
 let fps, fpsInterval, startTime, now, then, elapsed;
@@ -34,11 +36,19 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
 
     // stop
     if (stop) {
-      state.gameOver.draw();
-      // toast.error("You lose");
-      i = i-1;
-      i > 0 && requestAnimationFrame(()=>animate(false, buttonStart, state, keys, playerSpeed, scrollOffset));
-    }else{
+       state.gameOver.draw().then(()=>{
+          end = true;
+       });
+      // // toast.error("You lose");
+      // i = i-1;
+      // i > 0 && requestAnimationFrame(()=>animate(false, buttonStart, state, keys, playerSpeed, scrollOffset));
+    }
+    
+    if(end)
+    {
+      return;
+    }
+    {
 
     let gameOver2 = gameOver;
     frameCounter++;
