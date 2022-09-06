@@ -14,10 +14,12 @@ class GameOver{
 
 
     draw() {
+        this.c.drawImage(createImage(gameOver), window.innerWidth/4, window.innerHeight/4, 600,600)
 
         const drawPromise = new Promise((resolve, reject) => {
-            this.c.drawImage(createImage(gameOver), window.innerWidth/4, window.innerHeight/4, 600,600)
-            resolve();
+            setTimeout(() => {
+                resolve();
+              }, 20);
           });
 
           return drawPromise;
