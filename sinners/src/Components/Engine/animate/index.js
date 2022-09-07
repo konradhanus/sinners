@@ -9,7 +9,8 @@ import drawEnemies from '../draw/drawEnemies';
 
 import { toast } from 'react-hot-toast';
 let frameCounter = 0;
-
+let score = 0;
+let lives = 1;
 let stop = false;
 let end = false;
 
@@ -28,11 +29,9 @@ export function startAnimating(fps, gameOver, buttonStart, state, keys, playerSp
 const i = 100;
 const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) => {
 
-  console.log(i)
-
     // stop
     if (stop) {
-       state.gameOver.draw().then(()=>{
+       state.gameOver.draw(()=>{lives = lives -1;}).then(()=>{
           end = true;
        });
       // // toast.error("You lose");
@@ -42,6 +41,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     
     if(end)
     {
+      
       return;
     }
     {
@@ -94,14 +94,22 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
       parallaxEffect(keys, state.player, playerSpeed, scrollOffset, state.platforms, state.genericObjects, state.enemies)
       platformCollisionDetection(state.platforms, state.player);
       
-      stop = ifGameOver(scrollOffset, gameOver, state.player, state.enemies, stop);
+      stop = ifGameOver(
+        scrollOffset, 
+        gameOver, 
+        state.player, 
+        state.enemies);
 
     }
 
     if(state.player !== undefined && state.enemies !== undefined)
     {
       // console.log('a', state.enemies)
-      enemyColistionDetection(state.enemies, state.player, state.platforms, state.ctx, state.canvasState);
+      enemyColistionDetection(
+          state.enemies, 
+          state.player, 
+          state.platforms, 
+          ()=>{ score = score+100});
     }
 
     state.enemies.map((e)=>{
@@ -125,7 +133,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     `up ${keys.up.pressed}, onFly ${keys.up.onFly}`,
     );
 
-    state.score.draw('SCORE', '0', 'STARS','0', 'TIME', Math.round(400-sinceStart/1000,2), 'LIVES', '1')
+    state.score.draw('SCORE', score, 'STARS','0', 'TIME', Math.round(400-sinceStart/1000,2), 'LIVES', lives)
   }
 }
 

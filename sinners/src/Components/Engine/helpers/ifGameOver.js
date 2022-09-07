@@ -10,7 +10,8 @@ const ifGameOver = (scrollOffset, gameOver, player, enemies) => {
       {
         if(!enemy.killed)
         {
-          stop = true;
+          
+        stop = true;
         }
         // console.log('pozycja przeciwnik jest w')
       }else{
@@ -20,7 +21,7 @@ const ifGameOver = (scrollOffset, gameOver, player, enemies) => {
 
     if(stop)
     {
-      return true;
+        return true;
     }
    
 

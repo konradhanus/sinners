@@ -1,4 +1,4 @@
-const enemyCollisionDetection = (enemies, player, platforms) => {
+const enemyCollisionDetection = (enemies, player, platforms, scoreCallback) => {
     enemies.forEach((enemy)=> {
 
       const playerPositionFromTheTop = player.position.y + player.height;
@@ -19,7 +19,12 @@ const enemyCollisionDetection = (enemies, player, platforms) => {
       {
         // console.log('on', player.position.x + player.width, '>', enemy.position.x, ' && ', player.position.x, '<=', enemy.position.x + player.width/2)
         player.velocity.y = turnOffGravity;
+        if(!enemy.killed)
+        {
+          scoreCallback();
+        }
         enemy.kill();
+        
       }
     });
 
