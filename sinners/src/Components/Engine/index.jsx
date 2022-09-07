@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import useCanvas from './hooks/useCanvas';
 import { playerSpeed, windowWidth, windowHeight, fps } from "./globals/config";
-import { Toaster } from 'react-hot-toast';
 import keys from './globals/keys';
 import userKeyDownPress from './keyPress/userKeyDownPress';
 import userKeyUpPress from './keyPress/userKeyUpPress';
@@ -54,18 +53,17 @@ const Engine = ({ level, hero }) => {
     // canvas.width = windowWidth;
     // canvas.height = windowHeight;
 
-    // function setSize(canvas){
-    //   canvas.width  = window.innerWidth;
-    //   canvas.height = window.innerHeight-4;
-    // }
+    function setSize(canvas){
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight-4;
+    }
 
-    // setSize(canvas);
+    setSize(canvas);
 
-    // window.addEventListener('resize',()=>{
-    //   setSize(canvas);
-    // })
-    canvas.width  = 1024;
-    canvas.height = 1024;
+    window.addEventListener('resize',()=>{
+      setSize(canvas);
+    })
+
     init(canvas, ctx, level, state, hero);
   
   });
@@ -79,10 +77,6 @@ const Engine = ({ level, hero }) => {
   });
 
   return <>
-    <Toaster
-      position="top-center"
-      reverseOrder={false}
-    />
     {/* <button style={{visibility: 'none'}} onClick={onClickStart} ref={start => buttonStart = start}>start</button> */}
     <canvas ref={canvasRef}></canvas>
   </>

@@ -128,7 +128,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     let sinceStart = now - startTime;
     let currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
     state.stats.draw(`${currentFps} fps`, 
-    `left: ${state.player.velocity.y}`,
+    `position: ${state.player.position.y}`,
     `right ${keys.right.pressed}`, 
     `up ${keys.up.pressed}, onFly ${keys.up.onFly}`,
     );

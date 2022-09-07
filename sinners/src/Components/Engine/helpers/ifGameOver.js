@@ -19,6 +19,11 @@ const ifGameOver = (scrollOffset, gameOver, player, enemies) => {
       }
     });
 
+    if(player.position.y > 1400)
+    {
+      stop = true;
+    }
+
     if(stop)
     {
         return true;

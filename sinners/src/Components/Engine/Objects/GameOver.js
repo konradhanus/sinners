@@ -11,9 +11,9 @@ class GameOver{
         this.height = 550;
         this.die = false;
     }
-
+    
     draw(livesCallback, lives) {
-        this.c.drawImage(createImage(gameOver), window.innerWidth/4, window.innerHeight/4, 600,600)
+        this.c.drawImage(createImage(gameOver), this.canvas.width/2 - this.width/2, this.canvas.height/2 - this.height/2, this.width,this.height)
         
         if(!this.die)
         { 
@@ -22,16 +22,11 @@ class GameOver{
         }
 
         const drawPromise = new Promise((resolve, reject) => {
-           
-           
             setTimeout(() => {
-               
                 resolve();
               }, 20);
           });
-
           return drawPromise;
-        
     }
 
 }
