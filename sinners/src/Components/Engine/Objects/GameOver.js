@@ -11,8 +11,6 @@ class GameOver{
         this.height = 550;
     }
 
-
-
     draw() {
         this.c.drawImage(createImage(gameOver), window.innerWidth/4, window.innerHeight/4, 600,600)
 
