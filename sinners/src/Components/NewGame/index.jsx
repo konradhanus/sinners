@@ -18,8 +18,8 @@ const NewGame = () => {
     const [chooseHero, setChooseHero] = useState(false);
     const [level, setLevel] = useState(level0);
     return (newGame ?  <Engine level={level} hero={hero}/>  : <>
-    <div class="background">
-        <div class="center ">
+    <div className="background">
+        <div className="center ">
        
         <center>
             <img src={logo} alt="THE SINNERS" width="100%" />

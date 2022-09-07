@@ -9,7 +9,6 @@ import useEventListener from './hooks/useEventListener';
 import init from './helpers/init';
 import newGame from './helpers/newGame';
 import { startAnimating } from './animate';
-let gameOver = false;
 
 const Engine = ({ level, hero }) => {
 
@@ -20,6 +19,7 @@ const Engine = ({ level, hero }) => {
   const [canvasState, setCanvasState] = React.useState();
   const [genericObjects, setGenericObjects] = React.useState();
   const [stats, setStats] = React.useState();
+  const [score, setScore] = React.useState();
   const [gameOver, setGameOver] = React.useState();
 
   const state = {
@@ -38,7 +38,9 @@ const Engine = ({ level, hero }) => {
     enemies, 
     setEnemies, 
     gameOver, 
-    setGameOver
+    setGameOver, 
+    score, 
+    setScore,
   }
 
   const handleUserKeyDownPress = useCallback(userKeyDownPress(player, platforms), [player]);
@@ -52,16 +54,18 @@ const Engine = ({ level, hero }) => {
     // canvas.width = windowWidth;
     // canvas.height = windowHeight;
 
-    function setSize(canvas){
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight-4;
-    }
+    // function setSize(canvas){
+    //   canvas.width  = window.innerWidth;
+    //   canvas.height = window.innerHeight-4;
+    // }
 
-    setSize(canvas);
+    // setSize(canvas);
 
-    window.addEventListener('resize',()=>{
-      setSize(canvas);
-    })
+    // window.addEventListener('resize',()=>{
+    //   setSize(canvas);
+    // })
+    canvas.width  = 1024;
+    canvas.height = 1024;
     init(canvas, ctx, level, state, hero);
   
   });

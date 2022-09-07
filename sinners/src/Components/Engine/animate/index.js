@@ -9,10 +9,6 @@ import drawEnemies from '../draw/drawEnemies';
 
 import { toast } from 'react-hot-toast';
 let frameCounter = 0;
-let time = 0;
-let FPS = 0;
-let time2 = 0;
-
 
 let stop = false;
 let end = false;
@@ -120,42 +116,16 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     {
       keys.up.onFly = false;
     }
-
-    // if(!lastCalledTime) {
-    //   lastCalledTime = performance.now();
-    //   fps = 0;
-    //   return;
-    // }
-    // let delta = (performance.now() - lastCalledTime)/1000;
-    // lastCalledTime = performance.now();
-    // fps = 1/delta;
-    // console.log(fps);
-    // if(timmy){
-     
-    //   let diff = timmy - frameCounter;
-    //   console.log(timmy, diff, frameCounter);
-    //   state.stats.draw(diff);
-    // }
-    // timy - liczba renderow
-
-    // if(performance.now() >= time + 1000)
-    // {
-    //   time = performance.now();
-    //   FPS = frameCounter;
-    //   frameCounter = 0;
-    // }
    
-
     let sinceStart = now - startTime;
     let currentFps = Math.round(1000 / (sinceStart / ++frameCount) * 100) / 100;
-    // $results.text("Elapsed time= " + Math.round(sinceStart / 1000 * 100) / 100 + " secs @ " + currentFps + " fps.");
     state.stats.draw(`${currentFps} fps`, 
     `left: ${state.player.velocity.y}`,
     `right ${keys.right.pressed}`, 
     `up ${keys.up.pressed}, onFly ${keys.up.onFly}`,
-    // `${performance.now()-time}`
-    // `${scrollOffset}`
-    )
+    );
+
+    state.score.draw('SCORE', '0', 'STARS','0', 'TIME', Math.round(400-sinceStart/1000,2), 'LIVES', '1')
   }
 }
 

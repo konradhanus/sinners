@@ -2,7 +2,7 @@ class Stat{
     constructor(ctx, canvas) {
         this.c = ctx;
         this.canvas = canvas;
-        this.position = {x: 925, y: 0}
+        this.position = {x: 925, y: 70}
 
         this.width = 100;
         this.height = 100;

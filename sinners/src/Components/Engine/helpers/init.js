@@ -1,5 +1,6 @@
 import { BLOCK } from "../../Block/type";
 import Stats from '../Objects/Stats';
+import Score from '../Objects/Score';
 import Player from '../Objects/Player';
 import Platform from '../Objects/Platform';
 import Enemy from '../Objects/Enemy';
@@ -37,6 +38,7 @@ export default (canvas, ctx, level, state, hero) => {
     const genericObjects = [g1]
     const p =  new Player(ctx, canvas, selectedHero, blockWidth);
     const s = new Stats(ctx, canvas);
+    const score = new Score(ctx, canvas);
     const g = new GameOver(ctx, canvas);
 
     const enemies = level.map((row,rowId)=>(
@@ -55,8 +57,10 @@ export default (canvas, ctx, level, state, hero) => {
     state.setCtxState(ctx);
     state.setCanvasState(canvas);
     state.setStats(s);
+    state.setScore(score);
     state.setEnemies(enemies);
     state.setGameOver(g);
+
     p.update();
     enemies.map((e)=>{
       e.update();
