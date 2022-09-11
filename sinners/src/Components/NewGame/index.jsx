@@ -9,7 +9,7 @@ import testLevel from '../../levels/testLevel';
 import barbarian from '../../assets/characters/barbarian/barbarian_1.png';
 import soldier from '../../assets/characters/wizard/wizard_1.png';
 import wizard from '../../assets/characters/soldier/soldier.png';
-
+import packageJson from '../../../package.json';
 
 const HEROES = { BARBARIAN: 1, WIZARD: 2, WARRIOR: 3}
 const NewGame = () => {
@@ -17,7 +17,9 @@ const NewGame = () => {
     const [hero, setHero] = useState(HEROES.BARBARIAN);
     const [chooseHero, setChooseHero] = useState(false);
     const [level, setLevel] = useState(level0);
-    return (newGame ?  <Engine level={level} hero={hero}/>  : <>
+
+    return (newGame ?  
+    <Engine level={level} hero={hero}/>  : <>
     <div className="background">
         <div className="center ">
        
@@ -32,12 +34,14 @@ const NewGame = () => {
                 </div></>:
         <center>
             <div><button onClick={()=>{ setChooseHero(true) }}>NEW GAME </button></div>
-            <div><button onClick={()=>{ setLevel(level0); setNewGame(true);  }}>LEVEL 0 </button></div>
+            <div><button onClick={()=>{ setLevel(level0); setNewGame(true);  }}>LEVEL </button></div>
             <div><button onClick={()=>{ setLevel(level1); setNewGame(true);  }}>LEVEL 1 </button></div>
             <div><button onClick={()=>{ setLevel(level2); setNewGame(true);  }}>LEVEL 2 </button></div>
             <div><button onClick={()=>{ setLevel(testLevel); setNewGame(true);  }}>LEVEL TEST </button></div>
         </center>
+       
         }
+         <center>{packageJson.version}</center>
         </div>
     </div>
     </>);

@@ -1,10 +1,22 @@
 const parallaxEffect = (keys, player, playerSpeed, scrollOffset, platforms, genericObjects, enemies) => {
   // po nacisnieciu prawo
+
+
+  platforms.forEach((platform) => {
+    
+    /* FOR ENEMY */
+    enemies.forEach((enemy) => {
+      // to do block enemies
+    })
+  })
+
+
   if(keys.right.pressed)
   { 
     // sprawdz kazda platforme 
     platforms.forEach((platform) => {
 
+      /* FOR PLAYER */
       const checkOnlyTheSameRow = player.position.y + player.height >= platform.position.y && 
       player.position.y < platform.position.y;
 

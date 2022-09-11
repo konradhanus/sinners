@@ -8,26 +8,32 @@ import drawPlayfield from '../draw/drawPlayfield';
 import drawEnemies from '../draw/drawEnemies';
 
 import { toast } from 'react-hot-toast';
+import setData from '../../../helpers/setData';
+
+const { uniqueNamesGenerator, adjectives, animals } = require('unique-names-generator');
+const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, animals] }).replace('_', ' ').replace('_', ' ').toUpperCase(); // big_red_donkey
+
+
 let frameCounter = 0;
 let score = 0;
 let lives = 1;
 let stop = false;
 let end = false;
-
+let save = false;
 let frameCount = 0;
 // let $results = $("#results");
 let fps, fpsInterval, startTime, now, then, elapsed;
 
-export function startAnimating(fps, gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) {
+export function startAnimating(fps, gameOver, state, keys, playerSpeed, scrollOffset) {
   fpsInterval = 1000 / fps;
   then = Date.now();
   startTime = then;
   // console.log(startTime);
-  animate(gameOver, buttonStart, state, keys, playerSpeed, scrollOffset);
+  animate(gameOver, state, keys, playerSpeed, scrollOffset);
 }
 
 const i = 100;
-const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) => {
+const animate = (gameOver, state, keys, playerSpeed, scrollOffset) => {
 
     // stop
     if (stop) {
@@ -41,7 +47,12 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     
     if(end)
     {
-      
+      if(!save)
+      {
+        save = true;
+        console.log('aaa');
+        setData(score, randomName)
+      }  
       return;
     }
     {
@@ -53,7 +64,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
          stop = true;
        
        
-        buttonStart.click();
+      
         gameOver2 = true;
         state.player.position = {
           x: state.player.defaultPosition.x,
@@ -69,7 +80,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     }
 
     // request another frame
-    requestAnimationFrame(()=>animate(gameOver2, buttonStart, state, keys, playerSpeed, scrollOffset));
+    requestAnimationFrame(()=>animate(gameOver2, state, keys, playerSpeed, scrollOffset));
     
     // calc elapsed time since last loop
 
@@ -133,7 +144,7 @@ const animate = (gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
     `up ${keys.up.pressed}, onFly ${keys.up.onFly}`,
     );
 
-    state.score.draw('SCORE', score, 'STARS','0', 'TIME', Math.round(400-sinceStart/1000,2), 'LIVES', lives)
+    state.score.draw('SCORE', score, 'YOUR NAME',randomName, 'TIME', Math.round(400-sinceStart/1000,2), 'LIVES', lives)
   }
 }
 

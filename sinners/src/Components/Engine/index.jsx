@@ -6,7 +6,6 @@ import userKeyDownPress from './keyPress/userKeyDownPress';
 import userKeyUpPress from './keyPress/userKeyUpPress';
 import useEventListener from './hooks/useEventListener';
 import init from './helpers/init';
-import newGame from './helpers/newGame';
 import { startAnimating } from './animate';
 
 const Engine = ({ level, hero }) => {
@@ -46,7 +45,6 @@ const Engine = ({ level, hero }) => {
   const handleUserKeyUpPress = useCallback(userKeyUpPress(player), [player]);
   useEventListener(handleUserKeyDownPress, handleUserKeyUpPress, player);
 
-  let buttonStart;
   let scrollOffset = 0;
 
   const canvasRef = useCanvas(([canvas, ctx]) => {
@@ -65,19 +63,23 @@ const Engine = ({ level, hero }) => {
     })
 
     init(canvas, ctx, level, state, hero);
-  
   });
 
-  const onClickStart = () => newGame(canvasRef, level, state, hero);
 
   const startGame = new Promise((resolve) => { resolve(); });
   
   startGame.then(() => {
-    player && startAnimating(fps, gameOver, buttonStart, state, keys, playerSpeed, scrollOffset) 
+    player && startAnimating(fps, gameOver, state, keys, playerSpeed, scrollOffset) 
   });
 
-  return <>
-    {/* <button style={{visibility: 'none'}} onClick={onClickStart} ref={start => buttonStart = start}>start</button> */}
+  return <><button style={{position: 'absolute', top: 10, left: 10}} onClick={()=>{   
+          handleUserKeyDownPress({keyCode: 38}); 
+          setTimeout(()=>handleUserKeyUpPress({keyCode: 38}), 20);
+        }}>Jump</button>
+        <button style={{position: 'absolute', top: 10, left: 210}} onClick={()=>{   
+          handleUserKeyDownPress({keyCode: 39}); 
+          // setTimeout(()=>handleUserKeyUpPress({keyCode: 39}), 20);
+        }}>Run</button>
     <canvas ref={canvasRef}></canvas>
   </>
 }

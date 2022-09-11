@@ -20,7 +20,7 @@ class Score{
         this.c.fillText(text7, this.position.x+this.spaceBettween*3, this.position.y);
 
         this.c.fillText(text2, this.position.x+30, this.position.y+30);
-        this.c.fillText(text4, this.position.x+this.spaceBettween+30, this.position.y+30);
+        this.c.fillText(text4, this.position.x+this.spaceBettween, this.position.y+30);
         this.c.fillText(text6, this.position.x+this.spaceBettween*2+5, this.position.y+30);
         this.c.fillText(text8, this.position.x+this.spaceBettween*3+30, this.position.y+30);
     }

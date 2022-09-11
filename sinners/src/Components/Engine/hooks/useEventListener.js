@@ -6,7 +6,8 @@ const useEventListener = (handleUserKeyDownPress, handleUserKeyUpPress, player) 
   React.useEffect(() => {
     // component did mount
     addEventListener(handleUserKeyDownPress, handleUserKeyUpPress)
-
+    // window.addEventListener("touchstart", ()=>handleUserKeyDownPress({keyCode: 39}));
+    // window.addEventListener("touchend", ()=>handleUserKeyUpPress({keyCode: 39}));
     // component will unmount
     return () => {
       removeEventListener(handleUserKeyDownPress, handleUserKeyUpPress);
