@@ -4,3 +4,4 @@ export const windowWidth = 1024;
 export const windowHeight = 1200;
 export const blockWidth = 50;
 export const fps = 60;
+

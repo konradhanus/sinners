@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import useCanvas from './hooks/useCanvas';
-import { playerSpeed, windowWidth, windowHeight, fps } from "./globals/config";
+import { fps } from "./globals/config";
 import keys from './globals/keys';
 import userKeyDownPress from './keyPress/userKeyDownPress';
 import userKeyUpPress from './keyPress/userKeyUpPress';
@@ -45,8 +45,6 @@ const Engine = ({ level, hero }) => {
   const handleUserKeyUpPress = useCallback(userKeyUpPress(player), [player]);
   useEventListener(handleUserKeyDownPress, handleUserKeyUpPress, player);
 
-  let scrollOffset = 0;
-
   const canvasRef = useCanvas(([canvas, ctx]) => {
     // canvas.width = windowWidth;
     // canvas.height = windowHeight;
@@ -69,7 +67,7 @@ const Engine = ({ level, hero }) => {
   const startGame = new Promise((resolve) => { resolve(); });
   
   startGame.then(() => {
-    player && startAnimating(fps, gameOver, state, keys, playerSpeed, scrollOffset) 
+    player && startAnimating(fps, gameOver, state, keys) 
   });
 
   return <><button style={{position: 'absolute', top: 10, left: 10}} onClick={()=>{   

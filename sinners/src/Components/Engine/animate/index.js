@@ -6,14 +6,14 @@ import drawGenericsObjects from '../draw/drawGenericObjects';
 import parallaxEffect from './parallaxEffect';
 import drawPlayfield from '../draw/drawPlayfield';
 import drawEnemies from '../draw/drawEnemies';
-
+import { playerSpeed } from '../globals/config';
 import { toast } from 'react-hot-toast';
 import setData from '../../../helpers/setData';
 
 const { uniqueNamesGenerator, adjectives, animals } = require('unique-names-generator');
 const randomName = uniqueNamesGenerator({ dictionaries: [adjectives, animals] }).replace('_', ' ').replace('_', ' ').toUpperCase(); // big_red_donkey
 
-
+let scrollOffset = 0;
 let frameCounter = 0;
 let score = 0;
 let lives = 1;
@@ -24,7 +24,7 @@ let frameCount = 0;
 // let $results = $("#results");
 let fps, fpsInterval, startTime, now, then, elapsed;
 
-export function startAnimating(fps, gameOver, state, keys, playerSpeed, scrollOffset) {
+export function startAnimating(fps, gameOver, state, keys) {
   fpsInterval = 1000 / fps;
   then = Date.now();
   startTime = then;
@@ -64,7 +64,7 @@ const animate = (gameOver, state, keys, playerSpeed, scrollOffset) => {
          stop = true;
        
        
-      
+        
         gameOver2 = true;
         state.player.position = {
           x: state.player.defaultPosition.x,
