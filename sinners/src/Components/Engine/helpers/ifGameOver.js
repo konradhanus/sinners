@@ -1,4 +1,4 @@
-const ifGameOver = (scrollOffset, gameOver, player, enemies) => {
+const ifGameOver = (scrollOffset, player, enemies) => {
 
     // console.log('player,', player, 'enemies', enemies)
     let stop = false;
@@ -32,11 +32,11 @@ const ifGameOver = (scrollOffset, gameOver, player, enemies) => {
 
     if(scrollOffset > 2000)
     {
-      if(!gameOver){
-        gameOver = true
-        // console.log('win');
+      // if(!gameOver){
+      //   gameOver = true
+      //   // console.log('win');
         
-      }
+      // }
     }
   }
 

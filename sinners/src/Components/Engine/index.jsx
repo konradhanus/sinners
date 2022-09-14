@@ -67,7 +67,7 @@ const Engine = ({ level, hero }) => {
   const startGame = new Promise((resolve) => { resolve(); });
   
   startGame.then(() => {
-    player && startAnimating(fps, gameOver, state, keys) 
+    player && startAnimating(fps, state, keys) 
   });
 
   return <><button style={{position: 'absolute', top: 10, left: 10}} onClick={()=>{   
